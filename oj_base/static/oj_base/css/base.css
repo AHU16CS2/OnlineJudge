@@ -1,0 +1,30 @@
+
+body{
+    background-color: #efffff;  /*#f7f9ff*/
+}
+
+#topnav{
+    font-size: 1.4em;
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 2.7em;
+}
+
+/* nav input{
+    width: 39%!important; 优先级不够 强制覆盖
+}*/
+
+main{
+    font-size: 1.1em;
+}
+
+#btnScroll{
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    z-index: 99;
+    cursor: pointer;
+    padding: 16px;
+    border-radius: 10px; 
+}
