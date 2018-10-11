@@ -28,6 +28,6 @@ class Users_Info(models.Model)
     #   (2, 'commonuser'),
     #)
     #user_type_id = models.IntegerField(choices=user_type_choices, default=1)
-
+###
 
 

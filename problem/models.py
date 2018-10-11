@@ -20,6 +20,6 @@ class Problems(models.Model)
     Author=models.CharField("题目作者",max_length=20,null=True)                #题目作者，所有用户名限制字符为20，可为空
     Up_time=models.DateField("上传时间")                                       #题目上传时间
     Tags=models.ManyToManyField(Tag,verbose_name="题目标签")                   #题目标签（分类）
-
+###
 
 
