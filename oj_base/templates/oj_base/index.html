@@ -1,0 +1,156 @@
+{% extends "oj_base/base.html" %}
+{% load static %}
+{% block css%} {% static 'oj_base/css/index.css' %} {% endblock %}
+
+{% block  标题 %}welcome AOJ {%endblock%}
+{% block  主页高亮 %}active {%endblock%}
+
+{% block  主体 %}
+{% if 警告 %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong><center>{{ 警告 }}</center></strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+
+{% if 信息 %}
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong><center>{{ 信息 }}</center></strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <br><br>
+      <br>
+      <br>
+      <div class="jumbotron">
+        <h1>Navbar example</h1>
+        <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
+        <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+      </div>
+
+      {% comment %} <br>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>序号</th>
+                <th>待办事项</th>
+                <th>编辑</th>
+                <th>划掉</th>
+                <th>删除</th>
+              </tr>
+            </thead>
+            <tbody class="no-underline">
+              {% for 每一件事 in 清单 %}
+                {% if  每一件事.done %}
+                  <tr class="table-dark">
+                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
+                    <td class="text-dark" id="line-through">{{ 每一件事.thing }}</td>
+                    <td class="text-secondary">不可编辑</td>
+                    <td>
+                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
+                        {% csrf_token %}
+                        <input name="完成状态" type="hidden" value="未完成">
+                        <button type="submit" class="btn btn-primary btn-sm " >撤销</button>
+                      </form>   
+                    </td>
+                    <td>
+                      <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm " >删除</button>
+                      </form>   
+                    </td>
+                  </tr>     
+                {% else %}
+                  <tr>
+                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
+                    <td>{{ 每一件事.thing }}</td>
+                    <td><a href="{% url 'todolist:编辑' 每一件事.id %}">
+                    <button type="submit" class="btn btn-primary btn-sm" >编辑</button>
+                    </a></td>
+                    <td>
+                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
+                        {% csrf_token %}
+                        <input name="完成状态" type="hidden" value="已完成">
+                        <button type="submit" class="btn btn-primary btn-sm " >划掉</button>
+                      </form>   
+                    </td>
+
+                    <td>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{forloop.counter}}">
+                        删除
+                      </button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label">删除确认</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              确定要删除未办事项:<strong class="text-danger">{{每一件事.thing}}</strong>吗？
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                              <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">确认删除</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>     
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div> {% endcomment %}
+{% endblock %}
+

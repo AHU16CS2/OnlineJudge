@@ -1,0 +1,6 @@
+.no-underline>tr>td>a:hover{ /*鼠标放上去没有下划线*/
+    text-decoration: none;
+}
+#line-through{
+    text-decoration: line-through;
+}
