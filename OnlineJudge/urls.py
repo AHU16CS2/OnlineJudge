@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-import oj_base.urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('oj_base.urls')),
+    path('', include('problem.urls')),
+    path('', include('submission.urls')),
+    path('', include('account.urls')),
 ]
