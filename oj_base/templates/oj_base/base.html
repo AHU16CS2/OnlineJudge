@@ -29,7 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li>
-            <img src="{% static 'oj_base/icons/aoj_icon.png' %}" width="53" height="53" class="d-inline-block align-top" alt="">
+            <img src="{% static 'oj_base/icons/aoj_icon.png' %}" width="55" height="55" alt="">
           </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <li class="nav-item  {% block 主页高亮 %}{% endblock %}">
             <a class="nav-link" href="{% url 'oj_base:主页' %}">主页 </a>
@@ -38,8 +38,14 @@
             <a class="nav-link" href="{% url 'oj_base:关于' %}">关于本站</a>
           </li>&nbsp;&nbsp;
           <li class="nav-item  {% block 题目列表高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'oj_base:题目列表' %}">题目列表</a>
-          </li>  
+            <a class="nav-link" href="{% url 'problem:题目列表' %}">题目列表</a>
+          </li>&nbsp;&nbsp;  
+          <li class="nav-item  {% block 评测记录高亮 %}{% endblock %}">
+            <a class="nav-link" href="{% url 'submission:评测记录' %}">评测记录</a>
+          </li>&nbsp;&nbsp;
+          <li class="nav-item  {% block 排名高亮 %}{% endblock %}">
+            <a class="nav-link" href="{% url 'account:排名' %}">排名</a>
+          </li>&nbsp;&nbsp;  
         </ul>
         {% comment %} <form class="form-inline mt-2 mt-md-0 col-7 justify-content-end" method="POST" action="">
             {% csrf_token %}  <!--django的特殊请求 下面的name也是-->
@@ -53,7 +59,7 @@
         {% block 主体 %}{% endblock %}
     </main>
 
-    <button type="button" id="btnScroll" class="btn btn-warning" onclick="toUp()"> 
+    <button type="button" id="btnScroll" class="btn btn-warning btn-lg" onclick="toUp()"> 
         <strong>Top</strong> 
     </button>
     <!-- Bootstrap core JavaScript

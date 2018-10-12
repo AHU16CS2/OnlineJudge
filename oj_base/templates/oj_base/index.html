@@ -6,150 +6,132 @@
 {% block  主页高亮 %}active {%endblock%}
 
 {% block  主体 %}
-{% if 警告 %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong><center>{{ 警告 }}</center></strong> 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{% endif %}
-
-{% if 信息 %}
-  <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <strong><center>{{ 信息 }}</center></strong> 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{% endif %}
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
-        <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+      <br><br><br>
+      <div class="card-columns">
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">Sun Gone</h4>
+              <h6 class="card-subtitle text-muted" style="float:right; margin-right: 20px;">这里是时间</h6>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/default3.gif' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
+        <div class="card text-white bg-primary">
+          <div class="card-body">
+            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
+            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
+            <br>
+          </div>
+        </div>
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">我院学生在中国大学生程序设计竞赛中连获佳绩</h4>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/news1.png' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">2018年9月22日，中国大学生程序设计竞赛（吉林站）在北华大学开幕。吉林站是今年中国大学生程序设
+            计竞赛分站赛的第一站，本次比赛共有来自北京大学、清华大学、复旦大学、上海交通大学等全国146所高校的220支代表队共计70
+            0余人参赛。我院2016级计算机科学与技术专业汪敏瑞、2017级计算机科学与技术专业施余峰和电子信息工程学院2015级电子信息
+            工程专业陈寰等三名同学组成的“Amadeus”队斩获银奖。9月28日，中国大学生程序设计竞赛（秦皇岛站）在东北大学秦皇岛分校
+            开幕。本次比赛共有来自北京大学、复旦大学、上海交通大学、南京大学、西安交通大学等全国181所高校的250支代表队共计800
+            余人参赛。喜讯传来，“Amadeus”队又获佳绩，再获银奖。</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
+        <div class="card text-white bg-info">
+          <div class="card-body">
+            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
+            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
+            <br>
+          </div>
+        </div>
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">Sun Gone</h4>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/default4.gif' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">Sun Gone</h4>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/default3.gif' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
+        <div class="card text-white bg-primary">
+          <div class="card-body">
+            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
+            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
+            <br>
+          </div>
+        </div>
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">我院学生在中国大学生程序设计竞赛中连获佳绩</h4>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/news1.png' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">2018年9月22日，中国大学生程序设计竞赛（吉林站）在北华大学开幕。吉林站是今年中国大学生程序设
+            计竞赛分站赛的第一站，本次比赛共有来自北京大学、清华大学、复旦大学、上海交通大学等全国146所高校的220支代表队共计70
+            0余人参赛。我院2016级计算机科学与技术专业汪敏瑞、2017级计算机科学与技术专业施余峰和电子信息工程学院2015级电子信息
+            工程专业陈寰等三名同学组成的“Amadeus”队斩获银奖。9月28日，中国大学生程序设计竞赛（秦皇岛站）在东北大学秦皇岛分校
+            开幕。本次比赛共有来自北京大学、复旦大学、上海交通大学、南京大学、西安交通大学等全国181所高校的250支代表队共计800
+            余人参赛。喜讯传来，“Amadeus”队又获佳绩，再获银奖。</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
+        <div class="card text-white bg-info">
+          <div class="card-body">
+            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
+            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
+            <br>
+          </div>
+        </div>
+        <div class="card">
+            <!-- Heading -->
+            <div class="card-body">
+              <h4 class="card-title">Sun Gone</h4>
+            </div>
+            <!-- Image -->
+            <img class="card-img-top" src="{% static 'oj_base/images/default4.gif' %}" alt="Photo of sunset">
+            <!-- Text Content -->
+            <div class="card-body">
+            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
+            <!-- Links -->
+            <a href="#" class="btn btn-primary">Full Report</a>
+            </div>
+        </div>
       </div>
-      {% comment %} <br>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead class="thead-light">
-              <tr>
-                <th>序号</th>
-                <th>待办事项</th>
-                <th>编辑</th>
-                <th>划掉</th>
-                <th>删除</th>
-              </tr>
-            </thead>
-            <tbody class="no-underline">
-              {% for 每一件事 in 清单 %}
-                {% if  每一件事.done %}
-                  <tr class="table-dark">
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td class="text-dark" id="line-through">{{ 每一件事.thing }}</td>
-                    <td class="text-secondary">不可编辑</td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="未完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >撤销</button>
-                      </form>   
-                    </td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm " >删除</button>
-                      </form>   
-                    </td>
-                  </tr>     
-                {% else %}
-                  <tr>
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td>{{ 每一件事.thing }}</td>
-                    <td><a href="{% url 'todolist:编辑' 每一件事.id %}">
-                    <button type="submit" class="btn btn-primary btn-sm" >编辑</button>
-                    </a></td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="已完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >划掉</button>
-                      </form>   
-                    </td>
-
-                    <td>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{forloop.counter}}">
-                        删除
-                      </button>
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label">删除确认</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              确定要删除未办事项:<strong class="text-danger">{{每一件事.thing}}</strong>吗？
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                              <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">确认删除</button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>     
-                {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-        </div> {% endcomment %}
+      <br><br><br>
 {% endblock %}
 

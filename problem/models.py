@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Tag(models.Model):
     Tag_name=models.CharField("标签名称",primary_key=True,max_length=30)
     Prob_num=models.IntegerField("标签对应题目数量")

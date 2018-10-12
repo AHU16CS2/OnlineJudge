@@ -1,8 +1,4 @@
 
-body{
-    background-color: #efffff;  /*#f7f9ff*/
-}
-
 #topnav{
     font-size: 1.4em;
     padding-left: 2em;
@@ -10,9 +6,9 @@ body{
     height: 2.7em;
 }
 
-/* nav input{
-    width: 39%!important; 优先级不够 强制覆盖
-}*/
+body{
+    background-color: #efffff;  /*#f7f9ff*/
+}
 
 main{
     font-size: 1.1em;
@@ -23,8 +19,9 @@ main{
     position: fixed;
     bottom: 30px;
     right: 40px;
-    z-index: 99;
+    z-index: 999;
     cursor: pointer;
-    padding: 16px;
+    padding: 10px;
     border-radius: 10px; 
 }
+

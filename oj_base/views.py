@@ -6,10 +6,6 @@ from django.shortcuts import render,redirect
 def index(request):
     return render(request,'oj_base/index.html')
 
-
 def about(request):
     return render(request, 'oj_base/about.html')
 
-
-def problist(request):
-    return render(request, 'oj_base/problist.html')
