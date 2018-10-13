@@ -1,0 +1,27 @@
+
+#topnav{
+    font-size: 1.4em;
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 2.7em;
+}
+
+body{
+    background-color: #efffff;  /*#f7f9ff*/
+}
+
+main{
+    font-size: 1.1em;
+}
+
+#btnScroll{
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    z-index: 999;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px; 
+}
+

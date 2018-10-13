@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'submission',
     'problem',
     'account',
+    'oj_base',
 ]
 
 MIDDLEWARE = [

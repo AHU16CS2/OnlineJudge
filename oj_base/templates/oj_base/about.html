@@ -1,0 +1,50 @@
+{% extends "oj_base/base.html" %}
+{% load static %}
+{% block css%} {% static 'oj_base/css/about.css' %} {% endblock %}
+
+{% block  标题 %}关于本站 {%endblock%}
+{% block  关于高亮 %}active {%endblock%}
+
+{% block 主体 %}
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h4>Input</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Some example text. Some example text.</p>
+            {% comment %} <a href="#" class="card-link">Card link</a> {% endcomment %}
+        </div>
+    </div><br>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Input</h4>
+        </div>
+        <div class="card-body">
+                <p class="card-text">Some example text. Some example text.</p>
+                {% comment %} <a href="#" class="card-link">Card link</a> {% endcomment %}
+        </div>
+    </div><br>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Input</h4>
+        </div>        
+        <div class="card-body">
+                <p class="card-text">Some example text. Some example text.</p>
+                {% comment %} <a href="#" class="card-link">Card link</a> {% endcomment %}
+        </div>
+    </div><br>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Input</h4>
+        </div>           
+        <div class="card-body">
+                <p class="card-text">Some example text. Some example text.</p>
+                {% comment %} <a href="#" class="card-link">Card link</a> {% endcomment %}
+        </div>
+    </div><br>
+
+{% endblock %}
