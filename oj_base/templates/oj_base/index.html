@@ -6,16 +6,27 @@
 {% block  主页高亮 %}active {%endblock%}
 
 {% block  主体 %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin:10px;">
-            <strong><center>登录以访问更多内容！</center></strong> 
+      <br>
+      <!--信息警告-->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><center>登录以访问更多内容！(╥╯^╰╥)</center></strong> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
       </div><br>
+      <!--按钮组 分类-->
+      <div class="btn-group btn-group-lg" style="float:right;">
+        <a href="{% url 'oj_base:主页' %}" class="btn btn-danger {{所有分类高亮}}" >所有分类</a> <!---->
+        {% for item in 新闻类别们 %}
+          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-info {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+        {% endfor %}
+      </div>
+      <br><br><br>
+      <!--主体部分-->
       <div class="card-columns">
         {% for item in 新闻们%}
             {% if item.mottoauthor %}
-              <div class="card text-white bg-{{名言的颜色们|random}}">
+              <div class="card text-white bg-{{颜色们|random}}">
                 <div class="card-body">
                   <p class="card-text">{{item.content}}</p>
                   <cite title="Source Title" style="float:right; margin-right:20px;" >——{{item.mottoauthor}}</cite>
@@ -26,26 +37,30 @@
               <div class="card">
                   <!-- Heading -->
                   <div class="card-body">
-                    <h4 class="card-title">{{item.title}}</h4>
-                    <h6 class="card-subtitle class="text-dark"" style="float:right; margin-right: 20px;">这里是时间</h6>
+                    <h4 class="card-title">{{item.title}}</h4>        <!--.pk是取主键 这里是newsType的id-->
+                    <h6 class="card-subtitle text-dark" style="float:right;">分类：<a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>&nbsp;&nbsp;&nbsp; {{item.created_time|date:"Y-m-d H:i:s"}}</h6>
                   </div>
                   <!-- Image -->
                   <img class="card-img-top" src="{% static 'oj_base/images/' %}{{新闻们的默认图片|random}}" alt="">
                   <!-- Text Content -->
                   <div class="card-body">
-                    <p class="card-text">{{item.content}}</p>
+                    <p class="card-text">{{item.content | truncatechars:450}}</p> <!-- 这里之后需要自定义过滤器 取min(450,30%*content)-->
                     <!-- Links -->
                     {% comment %} {% if 管理员 %}  {% endcomment %}
-                    <a href="{% url 'oj_base:编辑新闻' forloop.counter  %}" class="btn btn-danger" >编辑</a>
+                    <a href="{% url 'oj_base:编辑新闻' item.id  %}" class="btn btn-danger" >编辑</a>
                     {% comment %} {% endif %} {% endcomment %}
-                    <a href="{% url 'oj_base:新闻' forloop.counter  %}" class="btn btn-primary" style="float:right; margin-bottom:20px;">Full Report</a>
+                    <a href="{% url 'oj_base:新闻' item.id  %}" class="btn btn-primary" style="float:right; margin-bottom:20px;">查看全文</a>
                   </div>
               </div>
             {% endif %}
         {% endfor %}
-
-
       </div>
+      <!--对于没有文章时的处理-->
+      {% if 新闻总数 %}
+            <h3 class="text-center">共有{{新闻总数}}篇该类别的新闻</h3>
+      {% else %}
+            {% include "./notice.html" with 信息="暂无该类别的新闻，敬请期待！"%}
+      {% endif %}
       <br><br><br>
 {% endblock %}
 

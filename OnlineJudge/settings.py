@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'problem',
     'account',
     'oj_base',
-    'ckeditor',
+    'ckeditor',  # 一个富文本编辑模块
+    'comment',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

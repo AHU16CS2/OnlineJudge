@@ -3,3 +3,5 @@
 
 服务器部署：pythonanywhere
 
+
+FTP SSH协议

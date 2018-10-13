@@ -6,6 +6,10 @@
 
 {% block 主体 %}
     <br>
-        {{ news_detail.title }}
-        {{ news_detail.content }}
+        <h3>{{ news_detail.title }}</h3>
+        <h6 class="text-primary">发布时间{{news_detail.created_time|date:"Y-m-d H:i:s"}}</h6>
+        <h6 class="text-danger">最后更新于{{news_detail.last_updated_time|date:"Y-m-d H:i:s"}}</h6>
+        <h6 class="text-info"> 分类：{{news_detail.newstype}} &nbsp;&nbsp;&nbsp; </h6>
+        <p>{{ news_detail.content }}</p>
+
 {% endblock %}
