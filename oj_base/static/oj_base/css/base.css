@@ -1,5 +1,4 @@
-
-#topnav{
+#topnav{   /*导航栏样式*/
     font-size: 1.4em;
     padding-left: 2em;
     padding-right: 2em;
@@ -10,11 +9,7 @@ body{
     background-color: #efffff;  /*#f7f9ff*/
 }
 
-main{
-    font-size: 1.1em;
-}
-
-#btnScroll{
+#btnScroll{  /*回到顶部按钮*/
     display: none;
     position: fixed;
     bottom: 30px;
