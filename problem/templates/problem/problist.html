@@ -15,74 +15,18 @@
               </tr>
             </thead>
             <tbody class="no-underline">
+            {%for problem in problems%}
                 <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
+                    <td class="text-dark" scope="row">
+                        <a class="nav-link" href="{% url 'problem:题目描述' problem.Pid %}">{{problem.Pid}}</a>
+                    </td>
+                    <td class="text-dark" id="line-through">
+                        <a class="nav-link" href="{% url 'problem:题目描述' problem.Pid %}">{{problem.Headline}}</a>
+                    </td>
                     <td class="text-secondary">不可编辑</td>
                 </tr>
-                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
+            {%endfor%}
 
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
-                                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>                <tr>
-                    <td class="text-dark" scope="row">dddddddddd</td>
-                    <td class="text-dark" id="line-through">dddddddddd</td>
-                    <td class="text-secondary">不可编辑</td>
-                </tr>
               {% comment %} {% for 每一件事 in 清单 %}
                 {% if  每一件事.done %}
                   <tr class="table-dark">
