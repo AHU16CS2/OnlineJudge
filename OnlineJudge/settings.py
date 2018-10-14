@@ -127,4 +127,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #自定义用户
-AUTH_USER_MODEL = 'account.MyUser'
+#AUTH_USER_MODEL = 'account.MyUser'
