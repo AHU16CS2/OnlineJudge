@@ -2,136 +2,65 @@
 {% load static %}
 {% block css%} {% static 'oj_base/css/index.css' %} {% endblock %}
 
-{% block  标题 %}welcome AOJ {%endblock%}
+{% block  标题 %}Welcome AOJ {%endblock%}
 {% block  主页高亮 %}active {%endblock%}
 
 {% block  主体 %}
-      <br><br><br>
-      <div class="card-columns">
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">Sun Gone</h4>
-              <h6 class="card-subtitle text-muted" style="float:right; margin-right: 20px;">这里是时间</h6>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/default3.gif' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
-        <div class="card text-white bg-primary">
-          <div class="card-body">
-            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
-            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
-            <br>
-          </div>
-        </div>
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">我院学生在中国大学生程序设计竞赛中连获佳绩</h4>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/news1.png' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">2018年9月22日，中国大学生程序设计竞赛（吉林站）在北华大学开幕。吉林站是今年中国大学生程序设
-            计竞赛分站赛的第一站，本次比赛共有来自北京大学、清华大学、复旦大学、上海交通大学等全国146所高校的220支代表队共计70
-            0余人参赛。我院2016级计算机科学与技术专业汪敏瑞、2017级计算机科学与技术专业施余峰和电子信息工程学院2015级电子信息
-            工程专业陈寰等三名同学组成的“Amadeus”队斩获银奖。9月28日，中国大学生程序设计竞赛（秦皇岛站）在东北大学秦皇岛分校
-            开幕。本次比赛共有来自北京大学、复旦大学、上海交通大学、南京大学、西安交通大学等全国181所高校的250支代表队共计800
-            余人参赛。喜讯传来，“Amadeus”队又获佳绩，再获银奖。</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
-        <div class="card text-white bg-info">
-          <div class="card-body">
-            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
-            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
-            <br>
-          </div>
-        </div>
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">Sun Gone</h4>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/default4.gif' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">Sun Gone</h4>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/default3.gif' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
-        <div class="card text-white bg-primary">
-          <div class="card-body">
-            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
-            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
-            <br>
-          </div>
-        </div>
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">我院学生在中国大学生程序设计竞赛中连获佳绩</h4>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/news1.png' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">2018年9月22日，中国大学生程序设计竞赛（吉林站）在北华大学开幕。吉林站是今年中国大学生程序设
-            计竞赛分站赛的第一站，本次比赛共有来自北京大学、清华大学、复旦大学、上海交通大学等全国146所高校的220支代表队共计70
-            0余人参赛。我院2016级计算机科学与技术专业汪敏瑞、2017级计算机科学与技术专业施余峰和电子信息工程学院2015级电子信息
-            工程专业陈寰等三名同学组成的“Amadeus”队斩获银奖。9月28日，中国大学生程序设计竞赛（秦皇岛站）在东北大学秦皇岛分校
-            开幕。本次比赛共有来自北京大学、复旦大学、上海交通大学、南京大学、西安交通大学等全国181所高校的250支代表队共计800
-            余人参赛。喜讯传来，“Amadeus”队又获佳绩，再获银奖。</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
-        <div class="card text-white bg-info">
-          <div class="card-body">
-            <p class="card-text">过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。</p>
-            <cite title="Source Title" style="float:right; margin-right: 20px;" >——巴尔扎克</cite>
-            <br>
-          </div>
-        </div>
-        <div class="card">
-            <!-- Heading -->
-            <div class="card-body">
-              <h4 class="card-title">Sun Gone</h4>
-            </div>
-            <!-- Image -->
-            <img class="card-img-top" src="{% static 'oj_base/images/default4.gif' %}" alt="Photo of sunset">
-            <!-- Text Content -->
-            <div class="card-body">
-            <p class="card-text">The sun disappeared behind the horizon today. Experts claim it could be gone for good!</p>
-            <!-- Links -->
-            <a href="#" class="btn btn-primary">Full Report</a>
-            </div>
-        </div>
+      <br>
+      <!--信息警告-->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><center>登录以访问更多内容！(╥╯^╰╥)</center></strong> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+      </div><br>
+      <!--按钮组 分类-->
+      <div class="btn-group btn-group-lg" style="float:right;">
+        <a href="{% url 'oj_base:主页' %}" class="btn btn-danger {{所有分类高亮}}" >所有分类</a> <!---->
+        {% for item in 新闻类别们 %}
+          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-info {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+        {% endfor %}
       </div>
+      <br><br><br>
+      <!--主体部分-->
+      <div class="card-columns">
+        {% for item in 新闻们%}
+            {% if item.mottoauthor %}
+              <div class="card text-white bg-{{颜色们|random}}">
+                <div class="card-body">
+                  <p class="card-text">{{item.content}}</p>
+                  <cite title="Source Title" style="float:right; margin-right:20px;" >——{{item.mottoauthor}}</cite>
+                  <br>
+                </div>
+              </div>
+            {% else %}
+              <div class="card">
+                  <!-- Heading -->
+                  <div class="card-body">
+                    <h4 class="card-title">{{item.title}}</h4>        <!--.pk是取主键 这里是newsType的id-->
+                    <h6 class="card-subtitle text-dark" style="float:right;">分类：<a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>&nbsp;&nbsp;&nbsp; {{item.created_time|date:"Y-m-d H:i:s"}}</h6>
+                  </div>
+                  <!-- Image -->
+                  <img class="card-img-top" src="{% static 'oj_base/images/' %}{{新闻们的默认图片|random}}" alt="">
+                  <!-- Text Content -->
+                  <div class="card-body">
+                    <p class="card-text">{{item.content | truncatechars:450}}</p> <!-- 这里之后需要自定义过滤器 取min(450,30%*content)-->
+                    <!-- Links -->
+                    {% comment %} {% if 管理员 %}  {% endcomment %}
+                    <a href="{% url 'oj_base:编辑新闻' item.id  %}" class="btn btn-danger" >编辑</a>
+                    {% comment %} {% endif %} {% endcomment %}
+                    <a href="{% url 'oj_base:新闻' item.id  %}" class="btn btn-primary" style="float:right; margin-bottom:20px;">查看全文</a>
+                  </div>
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div>
+      <!--对于没有文章时的处理-->
+      {% if 新闻总数 %}
+            <h3 class="text-center">共有{{新闻总数}}篇该类别的新闻</h3>
+      {% else %}
+            {% include "./notice.html" with 信息="暂无该类别的新闻，敬请期待！"%}
+      {% endif %}
       <br><br><br>
 {% endblock %}
 

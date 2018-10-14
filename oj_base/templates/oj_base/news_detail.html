@@ -1,0 +1,15 @@
+{% extends "oj_base/base.html" %}
+{% load static %}
+{% block css%} {% static 'oj_base/css/news.css' %} {% endblock %}
+
+{% block  标题 %}新闻 {%endblock%}
+
+{% block 主体 %}
+    <br>
+        <h3>{{ news_detail.title }}</h3>
+        <h6 class="text-primary">发布时间{{news_detail.created_time|date:"Y-m-d H:i:s"}}</h6>
+        <h6 class="text-danger">最后更新于{{news_detail.last_updated_time|date:"Y-m-d H:i:s"}}</h6>
+        <h6 class="text-info"> 分类：{{news_detail.newstype}} &nbsp;&nbsp;&nbsp; </h6>
+        <p>{{ news_detail.content }}</p>
+
+{% endblock %}
