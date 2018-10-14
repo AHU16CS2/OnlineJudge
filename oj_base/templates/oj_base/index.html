@@ -2,154 +2,65 @@
 {% load static %}
 {% block css%} {% static 'oj_base/css/index.css' %} {% endblock %}
 
-{% block  标题 %}welcome AOJ {%endblock%}
+{% block  标题 %}Welcome AOJ {%endblock%}
 {% block  主页高亮 %}active {%endblock%}
 
 {% block  主体 %}
-{% if 警告 %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong><center>{{ 警告 }}</center></strong> 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{% endif %}
-
-{% if 信息 %}
-  <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <strong><center>{{ 信息 }}</center></strong> 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{% endif %}
       <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <br><br>
-      <br>
-      <br>
-      <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
-        <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+      <!--信息警告-->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><center>登录以访问更多内容！(╥╯^╰╥)</center></strong> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+      </div><br>
+      <!--按钮组 分类-->
+      <div class="btn-group btn-group-lg" style="float:right;">
+        <a href="{% url 'oj_base:主页' %}" class="btn btn-danger {{所有分类高亮}}" >所有分类</a> <!---->
+        {% for item in 新闻类别们 %}
+          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-info {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+        {% endfor %}
       </div>
-      {% comment %} <br>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead class="thead-light">
-              <tr>
-                <th>序号</th>
-                <th>待办事项</th>
-                <th>编辑</th>
-                <th>划掉</th>
-                <th>删除</th>
-              </tr>
-            </thead>
-            <tbody class="no-underline">
-              {% for 每一件事 in 清单 %}
-                {% if  每一件事.done %}
-                  <tr class="table-dark">
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td class="text-dark" id="line-through">{{ 每一件事.thing }}</td>
-                    <td class="text-secondary">不可编辑</td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="未完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >撤销</button>
-                      </form>   
-                    </td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm " >删除</button>
-                      </form>   
-                    </td>
-                  </tr>     
-                {% else %}
-                  <tr>
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td>{{ 每一件事.thing }}</td>
-                    <td><a href="{% url 'todolist:编辑' 每一件事.id %}">
-                    <button type="submit" class="btn btn-primary btn-sm" >编辑</button>
-                    </a></td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="已完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >划掉</button>
-                      </form>   
-                    </td>
-
-                    <td>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{forloop.counter}}">
-                        删除
-                      </button>
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label">删除确认</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              确定要删除未办事项:<strong class="text-danger">{{每一件事.thing}}</strong>吗？
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                              <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">确认删除</button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>     
-                {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-        </div> {% endcomment %}
+      <br><br><br>
+      <!--主体部分-->
+      <div class="card-columns">
+        {% for item in 新闻们%}
+            {% if item.mottoauthor %}
+              <div class="card text-white bg-{{颜色们|random}}">
+                <div class="card-body">
+                  <p class="card-text">{{item.content}}</p>
+                  <cite title="Source Title" style="float:right; margin-right:20px;" >——{{item.mottoauthor}}</cite>
+                  <br>
+                </div>
+              </div>
+            {% else %}
+              <div class="card">
+                  <!-- Heading -->
+                  <div class="card-body">
+                    <h4 class="card-title">{{item.title}}</h4>        <!--.pk是取主键 这里是newsType的id-->
+                    <h6 class="card-subtitle text-dark" style="float:right;">分类：<a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>&nbsp;&nbsp;&nbsp; {{item.created_time|date:"Y-m-d H:i:s"}}</h6>
+                  </div>
+                  <!-- Image -->
+                  <img class="card-img-top" src="{% static 'oj_base/images/' %}{{新闻们的默认图片|random}}" alt="">
+                  <!-- Text Content -->
+                  <div class="card-body">
+                    <p class="card-text">{{item.content | truncatechars:450}}</p> <!-- 这里之后需要自定义过滤器 取min(450,30%*content)-->
+                    <!-- Links -->
+                    {% comment %} {% if 管理员 %}  {% endcomment %}
+                    <a href="{% url 'oj_base:编辑新闻' item.id  %}" class="btn btn-danger" >编辑</a>
+                    {% comment %} {% endif %} {% endcomment %}
+                    <a href="{% url 'oj_base:新闻' item.id  %}" class="btn btn-primary" style="float:right; margin-bottom:20px;">查看全文</a>
+                  </div>
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div>
+      <!--对于没有文章时的处理-->
+      {% if 新闻总数 %}
+            <h3 class="text-center">共有{{新闻总数}}篇该类别的新闻</h3>
+      {% else %}
+            {% include "./notice.html" with 信息="暂无该类别的新闻，敬请期待！"%}
+      {% endif %}
+      <br><br><br>
 {% endblock %}
 

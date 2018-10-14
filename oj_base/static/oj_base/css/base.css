@@ -1,28 +1,22 @@
+#topnav{   /*导航栏样式*/
+    font-size: 1.4em;
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 2.7em;
+}
 
 body{
     background-color: #efffff;  /*#f7f9ff*/
 }
 
-#topnav{
-    font-size: 1.5em;
-    padding-left: 5em;
-    padding-right: 5em;
-    height: 2.7em;
-}
-
-/* nav input{
-    width: 39%!important; 优先级不够 强制覆盖
-}*/
-
-main{
-    font-size: 1.1em;
-}
-
-#toTop{
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
-	cursor: pointer;
-	display: none;
+#btnScroll{  /*回到顶部按钮*/
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    z-index: 999;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px; 
 }
 
