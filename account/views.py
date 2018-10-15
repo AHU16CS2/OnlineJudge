@@ -12,5 +12,6 @@ def user_info(request):
     context = {}
     return render(request, 'account/user_info.html', context)
 
+
 def ranklist(request):
     return render(request, 'account/ranklist.html')

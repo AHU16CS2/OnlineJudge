@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='昵称')
-    nickname = models.CharField(max_length=20)
-    Gender = models.CharField(max_length=10)
-    Nation = models.CharField(max_length=30)
-    Motto = models.TextField()
-    AC_num = models.IntegerField(default=0)
-    Submit_num = models.IntegerField(default=0)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=20, verbose_name='昵称')
+    Gender = models.CharField(max_length=10, verbose_name='性别')
+    Nation = models.CharField(max_length=30, verbose_name='国籍')
+    Motto = models.TextField(verbose_name='个人签名')
+    AC_num = models.IntegerField(default=0, verbose_name='通过题数')
+    Submit_num = models.IntegerField(default=0, verbose_name='提交题数')
 
     def __str__(self):
         return '<Profile: %s for %s>' % (self.nickname, self.user.username)
