@@ -9,6 +9,7 @@ class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
 
+
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline, )
     list_display = ('username', 'nickname', 'email', 'is_staff', 'is_active', 'is_superuser')
@@ -16,6 +17,7 @@ class UserAdmin(BaseUserAdmin):
     def nickname(self, obj):
         return obj.profile.nickname
     nickname.short_description = '昵称'
+
 
 # Re-register UserAdmin
 admin.site.unregister(User)

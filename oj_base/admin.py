@@ -11,7 +11,7 @@ class newsType_admin(admin.ModelAdmin):
 
 @admin.register(new)
 class new_admin(admin.ModelAdmin):
-    list_display = ("id", "title", "author", "newstype", "is_deleted", "created_time", "last_updated_time")
+    list_display = ("id", "title", "newstype", "is_deleted", "created_time", "last_updated_time")
     ordering = ("id",)  # 默认是倒叙 ordering = ("-id",)
 
 
