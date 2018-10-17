@@ -7,18 +7,32 @@
 
 {% block  主体 %}
       <br>
-      <!--信息警告-->
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong><center>登录以访问更多内容！(╥╯^╰╥)</center></strong> 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+      <!--信息-->
+      <div class="alert alert-{% if user.is_authenticated %}primary{% else %}warning{% endif %} alert-dismissible fade show" role="alert">
+        <strong><center>
+            {% if user.is_authenticated %}
+              {% if user.is_staff %}
+                {% if user.is_superuser %}
+                    尊敬的超超...超级管理员，AOJ随时待命┭┮﹏┭┮
+                    {% else %}
+                    尊敬的管理员，欢迎━(*｀∀´*)ノ亻!
+                {% endif %}
+              {% else %}
+                欢迎来到AOJ━(*｀∀´*)ノ亻!
+              {% endif %}
+            {% else %}
+              登录以访问更多内容！(╥╯^╰╥)
+            {% endif %}
+        </center></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
       </div><br>
       <!--按钮组 分类-->
       <div class="btn-group btn-group-lg" style="float:right;">
         <a href="{% url 'oj_base:主页' %}" class="btn btn-danger {{所有分类高亮}}" >所有分类</a> <!---->
         {% for item in 新闻类别们 %}
-          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-info {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-primary {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
         {% endfor %}
       </div>
       <br><br><br>
@@ -54,12 +68,13 @@
               </div>
             {% endif %}
         {% endfor %}
-      </div>
+      </div><br>
       <!--对于没有文章时的处理-->
       {% if 新闻总数 %}
-            <h3 class="text-center">共有{{新闻总数}}篇该类别的新闻</h3>
+            {% load oj_base_extra1 %}
+            {% include "./alert/notice.html" with 信息=新闻总数|oj_base_extra1_filter1 %}
       {% else %}
-            {% include "./notice.html" with 信息="暂无该类别的新闻，敬请期待！"%}
+            {% include "./alert/notice.html" with 信息="暂无该类别的新闻，敬请期待！（づ￣3￣）づ╭❤～"  %}
       {% endif %}
       <br><br><br>
 {% endblock %}

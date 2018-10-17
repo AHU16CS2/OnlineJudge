@@ -20,7 +20,7 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('oj_base.urls')),
-    path('', include('problem.urls',namespace='OnlineJudge')),
-    path('', include('submission.urls')),
     path('', include('account.urls')),
+    path('', include('problem.urls')),
+    path('', include('submission.urls')),
 ]
