@@ -26,16 +26,17 @@ def yuming(request):
 
 
 def index(request, list_id):  #总新闻列表 
-    page_capacity=10 # 每页数量
+    page_capacity=3 # 每页数量
     rows1 = list(new.objects.filter(is_deleted=False))  #注意get与filter的区别
+    print(len(rows1))
     newsnum = len(rows1)
     list_num = math.ceil(newsnum/page_capacity)
-    if(list_id > list_num or list_id < 1):
+    if (list_id > list_num or list_id < 1 ) and list_num!=0 :
         return render(request,'oj_base/alert/not_exist.html')
     if list_id == list_num:
         rows1 = rows1[page_capacity*(list_id-1):]
-    else :
-        rows1 = rows1[page_capacity*(list_id-1):page_capacity*list_id-1]
+    else:
+        rows1 = rows1[page_capacity*(list_id-1):page_capacity*list_id]
     rows2 = list(motto.objects.filter(is_deleted=False))
     rows3 = list(newsType.objects.all())
     random.shuffle(rows2)  # 打乱名言的显示顺序
@@ -43,7 +44,7 @@ def index(request, list_id):  #总新闻列表
     jiange=3  # 每多少篇新闻加入一句名言
     for i in range(len(rows1)):  
         ans.append(rows1[i])
-        if (i+1)% jiange==0:
+        if (i+1)% jiange==0 and len(rows2):
             ans.append(rows2[j])
             j=j+1
             if j==len(rows2):
