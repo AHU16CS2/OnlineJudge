@@ -9,7 +9,8 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.models import User
-from .forms import LoginForm,RegForm
+from .models import Profile
+from .forms import LoginForm, RegForm, InfoForm
 
 
 def user_info(request):
@@ -62,3 +63,29 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return redirect('..')
+
+
+
+def change_user_info(request):
+    if request.method == 'POST':
+        info_form = InfoForm(request.POST)
+        if info_form.is_valid():
+            nickname_new = info_form.cleaned_data['nickname']
+            motto = info_form.cleaned_data['Motto']
+            gender = info_form.cleaned_data['Gender']
+            nation = info_form.cleaned_data['Nation']
+            profile, created = Profile.objects.get_or_create(user=request.user)#注意这个坑，只用get会出现Profile matching query does not exist.错误
+            profile.nickname = nickname_new
+            profile.Gender = gender
+            profile.Nation = nation
+            profile.Motto = motto
+            profile.save()
+            return redirect('..')
+        else :
+            pass
+    else:
+        info_form =InfoForm()
+    context = {}
+    context['info_form'] = info_form
+    return render(request, 'account/change_user_info.html',context)
+
