@@ -31,11 +31,15 @@
       </div><br>
 
       <!--按钮组 分页 分类 -->
-      <div>
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group btn-group-lg" style="float:left;">
           {% if 当前页数 > 1 %}
             <a href="{% url 'oj_base:主页' 当前页数|add:-1 %}" class="btn btn-dark" title="">
               <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
             </a>
           {% endif %}
           <a href="#" class="btn btn-dark">当前：第{{当前页数}}页 , 共{{总页数}}页</a>
@@ -43,26 +47,19 @@
             <a href="{% url 'oj_base:主页' 当前页数|add:1 %}" class="btn btn-dark" title="">
               <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
             </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
           {% endif %} 
         </div>
-        {% comment %} <div>
-          <form class="form-inline" method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group mx-sm-3 mb-2">
-              <label for="inputPassword2" class="sr-only">Password</label>
-              <input type="password" class="form-control" id="inputPassword2" placeholder="请输入页数">
-            </div>
-            <button type="submit" class="btn btn-danger mb-2">跳转</button>
-          </form>   
-        </div> {% endcomment %}
         <div class="btn-group btn-group-lg" style="float:right;">
           <a href="{% url 'oj_base:主页' 1 %}" class="btn btn-dark {{所有分类高亮}}" >所有分类</a> <!---->
           {% for item in 新闻类别们 %}
             <a href="{% url 'oj_base:新闻种类' item.id%}" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
           {% endfor %}
         </div>
-      </div>
-      <br><br>
+      </div><br>
 
       <!--主体部分-->
       <div class="card-columns">
@@ -103,6 +100,38 @@
             {% endif %}
         {% endfor %}
       </div><br>
+
+      <!--页面跳转-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" style="float:right">
+        <div class="btn-group btn-group-lg">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'oj_base:主页' 当前页数|add:-1 %}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          <a href="#" class="btn btn-dark">当前：第{{当前页数}}页 , 共{{总页数}}页</a>
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'oj_base:主页' 当前页数|add:1 %}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %} 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <form method="POST" class="btn-group btn-group-lg" style="float:right;">
+            {% csrf_token %}
+            <input name="跳转至页数" type="text" class="form-control" placeholder="页数" aria-label="Input group example" aria-describedby="btnGroupAddon2" style="width:70px;height:47px;padding:6px;font: 20px arial;display:inline;">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn-dark">跳转</button>
+          </form>
+        </div>
+      </div><br><br><br>
 
       <!--对于没有文章时的处理-->
       {% if 新闻总数 %}

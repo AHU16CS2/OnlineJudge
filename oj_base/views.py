@@ -26,6 +26,9 @@ def yuming(request):
 
 
 def index(request, list_id):  #总新闻列表 
+    if request.method == "POST":
+        tmp=request.POST['跳转至页数']
+        return redirect("/index/"+tmp)
     page_capacity=3 # 每页数量
     rows1 = list(new.objects.filter(is_deleted=False))  #注意get与filter的区别
     print(len(rows1))
