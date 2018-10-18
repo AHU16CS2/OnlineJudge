@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.models import User
 from .forms import LoginForm,RegForm
+
 color_list=('danger',
             'success',
             'info',
