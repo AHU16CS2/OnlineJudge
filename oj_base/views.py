@@ -1,8 +1,7 @@
-import  datetime
+import datetime
+import random,math
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from .models import *
-import random
-
 
 
 color_list=('danger',
@@ -13,18 +12,30 @@ color_list=('danger',
             )
 
 
-default_gif_list=  ('default1.gif',
-                    'default2.gif',
-                    'default3.gif',
-                    'default4.gif',
-                    'default5.gif',
-                    )
+# default_gif_list=  ('default1.gif',
+#                     'default2.gif',
+#                     'default3.gif',
+#                     'default4.gif',
+#                     'default5.gif',
+#                     )
+default_gif_list=('ahu2.png',)
 
 
+def yuming(request):
+    return redirect('/index/1')
 
-def index(request):  #总新闻列表 
-    # 分页处理还没写
+
+def index(request, list_id):  #总新闻列表 
+    page_capacity=10 # 每页数量
     rows1 = list(new.objects.filter(is_deleted=False))  #注意get与filter的区别
+    newsnum = len(rows1)
+    list_num = math.ceil(newsnum/page_capacity)
+    if(list_id > list_num or list_id < 1):
+        return render(request,'oj_base/alert/not_exist.html')
+    if list_id == list_num:
+        rows1 = rows1[page_capacity*(list_id-1):]
+    else :
+        rows1 = rows1[page_capacity*(list_id-1):page_capacity*list_id-1]
     rows2 = list(motto.objects.filter(is_deleted=False))
     rows3 = list(newsType.objects.all())
     random.shuffle(rows2)  # 打乱名言的显示顺序
@@ -37,8 +48,15 @@ def index(request):  #总新闻列表
             j=j+1
             if j==len(rows2):
                 j=0
-    Dict = {'新闻们' : ans,'颜色们' : color_list,'新闻们的默认图片':default_gif_list,
-           '新闻总数':len(rows1),'新闻类别们':rows3,'所有分类高亮':'active'}
+    Dict = {'新闻们' : ans,
+            '颜色们' : color_list,
+            '新闻们的默认图片':default_gif_list,
+            '新闻总数':newsnum,
+            '当前页数':list_id,
+            '总页数':list_num,
+            '新闻类别们':rows3,
+            '所有分类高亮':'active',
+            }
     return render(request,'oj_base/index.html',Dict)
 
 
@@ -76,7 +94,7 @@ def news_detail(request, 每个新闻_id):
 
 
 
-def edit_new(request, 每个新闻_id):  # 跳转后后台管理
+def edit_new(request, 每个新闻_id):
     if request.method == "POST":
         pass
         # s=request.POST['已修改事项']
