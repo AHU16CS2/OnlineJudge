@@ -1,15 +1,8 @@
-import  datetime
+import datetime
+import random,math
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from .models import *
-import random
-from django.contrib.contenttypes.models import ContentType
-from django.utils import timezone
-from django.db.models import Sum
-from django.core.cache import cache
-from django.urls import reverse
-from django.contrib import auth
-from django.contrib.auth.models import User
-from .forms import LoginForm,RegForm
+
 
 color_list=('danger',
             'success',
@@ -19,18 +12,30 @@ color_list=('danger',
             )
 
 
-default_gif_list=  ('default1.gif',
-                    'default2.gif',
-                    'default3.gif',
-                    'default4.gif',
-                    'default5.gif',
-                    )
+# default_gif_list=  ('default1.gif',
+#                     'default2.gif',
+#                     'default3.gif',
+#                     'default4.gif',
+#                     'default5.gif',
+#                     )
+default_gif_list=('ahu2.png',)
 
 
+def yuming(request):
+    return redirect('/index/1')
 
-def index(request):  #总新闻列表 
-    # 分页处理还没写
+
+def index(request, list_id):  #总新闻列表 
+    page_capacity=10 # 每页数量
     rows1 = list(new.objects.filter(is_deleted=False))  #注意get与filter的区别
+    newsnum = len(rows1)
+    list_num = math.ceil(newsnum/page_capacity)
+    if(list_id > list_num or list_id < 1):
+        return render(request,'oj_base/alert/not_exist.html')
+    if list_id == list_num:
+        rows1 = rows1[page_capacity*(list_id-1):]
+    else :
+        rows1 = rows1[page_capacity*(list_id-1):page_capacity*list_id-1]
     rows2 = list(motto.objects.filter(is_deleted=False))
     rows3 = list(newsType.objects.all())
     random.shuffle(rows2)  # 打乱名言的显示顺序
@@ -43,8 +48,15 @@ def index(request):  #总新闻列表
             j=j+1
             if j==len(rows2):
                 j=0
-    Dict = {'新闻们' : ans,'颜色们' : color_list,'新闻们的默认图片':default_gif_list,
-           '新闻总数':len(rows1),'新闻类别们':rows3,'所有分类高亮':'active'}
+    Dict = {'新闻们' : ans,
+            '颜色们' : color_list,
+            '新闻们的默认图片':default_gif_list,
+            '新闻总数':newsnum,
+            '当前页数':list_id,
+            '总页数':list_num,
+            '新闻类别们':rows3,
+            '所有分类高亮':'active',
+            }
     return render(request,'oj_base/index.html',Dict)
 
 
@@ -78,11 +90,11 @@ def news_detail(request, 每个新闻_id):
     except new.DoesNotExist:
         return render(request, 'oj_base/alert/not_exist.html')
     Dict = { 'news_detail'  : row }
-    return render(request, 'oj_base/news_detail.html',Dict)
+    return render(request, 'oj_base/news_detail.html', Dict)
 
 
 
-def edit_new(request, 每个新闻_id):  # 跳转后后台管理
+def edit_new(request, 每个新闻_id):
     if request.method == "POST":
         pass
         # s=request.POST['已修改事项']
@@ -101,45 +113,8 @@ def edit_new(request, 每个新闻_id):  # 跳转后后台管理
         pass
 
 
+
 def about(request):
     return render(request, 'oj_base/about.html')
 
 
-
-def login(request):
-    if request.method == 'POST':
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            user = login_form.cleaned_data['user']
-            auth.login(request,user)
-            return redirect('..')
-    else:
-        login_form = LoginForm()
-    context = {}
-    context['login_form'] = login_form
-
-    return render(request,'oj_base/login.html',context)
-
-def register(request):
-    if request.method == 'POST':
-        reg_form = RegForm(request.POST)
-        if reg_form.is_valid():
-            username = reg_form.cleaned_data['username']
-            email = reg_form.cleaned_data['email']
-            password = reg_form.cleaned_data['password']
-            #注册
-            user=User.objects.create_user(username, email, password)
-            user.save()
-            #登录
-            user=auth.authenticate(username=username,password=password)
-            auth.login(request, user)
-            return redirect('..')
-    else:
-        reg_form =RegForm()
-    context = {}
-    context['reg_form'] = reg_form
-    return render(request, 'oj_base/register.html' , context)
-
-def logout(request):
-    auth.logout(request)
-    return redirect('..')

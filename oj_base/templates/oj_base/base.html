@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- <base target="_blank"> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="descriptio n" content="">
@@ -14,7 +15,10 @@
     <link href="{% static 'oj_base/icons/aoj_icon.png' %}" rel="shortcut icon" >
 
     <!-- Bootstrap core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'oj_base/bootstrap-4.1.3/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="{% static 'oj_base/open-iconic/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'oj_base/css/base.css' %}" rel="stylesheet">
@@ -22,73 +26,109 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="topnav">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a href="https://icpc.baylor.edu/" target="_blank"><img src="{% static 'oj_base/icons/icpc_logo.png' %}" width="47" height="38" alt="icpc_logo"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="navbar-toggler" type="button" data-target="#navigation">
+          <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li>
-            <img src="{% static 'oj_base/icons/aoj_icon.png' %}" width="55" height="55" alt="">
-          </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
           <li class="nav-item  {% block 主页高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'oj_base:主页' %}">主页 </a>
+            <a class="nav-link" href="{% url 'oj_base:主页' 1 %}"><span class="oi oi-home" title="home" aria-hidden="true"></span> 主页</a>
           </li>&nbsp;&nbsp;
           <li class="nav-item  {% block 关于高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'oj_base:关于' %}">关于本站</a>
+            <a class="nav-link" href="{% url 'oj_base:关于' %}"><span class="oi oi-tag" title="tag" aria-hidden="true"></span> 关于本站</a>
           </li>&nbsp;&nbsp;
           <li class="nav-item  {% block 题目列表高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'problem:题目列表' %}">题目列表</a>
+            <a class="nav-link" href="{% url 'problem:题目列表' %}"><span class="oi oi-list" title="list" aria-hidden="true"></span> 题目列表</a>
           </li>&nbsp;&nbsp;  
           <li class="nav-item  {% block 评测记录高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'submission:评测记录' %}">评测记录</a>
+            <a class="nav-link" href="{% url 'submission:评测记录' %}"><span class="oi oi-task" title="task" aria-hidden="true"></span> 评测记录</a>
           </li>&nbsp;&nbsp;
           <li class="nav-item  {% block 排名高亮 %}{% endblock %}">
-            <a class="nav-link" href="{% url 'account:排名' %}">排名</a>
-          </li>&nbsp;&nbsp;  
+            <a class="nav-link" href="{% url 'account:排名' %}"><span class="oi oi-sort-descending" title="sort-descending" aria-hidden="true"></span> 排名</a>
+          </li>&nbsp;&nbsp;
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          {% if not user.is_authenticated %}
-              <li class="navbar navbar-expand-md navbar-dark bg-dark"><a href="{% url 'oj_base:login' %}">登录</a></li>
-              <li class="navbar navbar-expand-md navbar-dark bg-dark"><a href="{% url 'oj_base:register' %}">注册</a></li>
+        <ul class="navbar-nav ml-auto"
+        </ul>
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navdrop" data-toggle="dropdown" data-hover="dropdown"><span class="oi oi-person" title="person" aria-hidden="true" ></span> {{user.username}}</a>
+              <div class="dropdown-menu" aria-labelledby="navdrop">
+                  <a href="{% url 'account:user_info' %}" class="dropdown-item">个人信息</a>
+                  {% if user.is_staff %}
+                      <a href="#" class="dropdown-item">题目管理</a>
+                          {% if user.is_superuser %}
+                              <a href="{% url 'admin:index' %}" class="dropdown-item">后台管理</a>
+                          {% endif %}
+                  {% endif %}
+                  <a href="{% url 'account:登出' %}" class="dropdown-item">退出登录</a>
+              </div>
+            </li>
           {% else %}
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'account:user_info' %}">个人信息</a></li>
-            {% if user.is_staff %}
-              <li><a href="#">题目管理</a></li>
-              {% if user.is_superuser %}
-                <li><a href="{% url 'admin:index' %}">后台管理</a></li>
-              {% endif %}
-            {% endif %}
-            <li><a href="{% url 'oj_base:logout' %}">退出登录</a></li>
-          </ul>
-        </li>
+            <li class="nav-item navbar-expand-md {% block 登录高亮 %}{% endblock %} "><a class="nav-link" href="{% url 'account:登录' %}"><span class="oi oi-target" title="target" aria-hidden="true"></span> 登录</a></li>&nbsp;
+            <li class="nav-item navbar-expand-md {% block 注册高亮 %}{% endblock %} "><a class="nav-link" href="{% url 'account:注册' %}"><span class="oi oi-people" title="people" aria-hidden="true" ></span> 注册</a></li>
           {% endif %}
-      </ul>
-        {% comment %} <form class="form-inline mt-2 mt-md-0 col-7 justify-content-end" method="POST" action="">
-            {% csrf_token %}  <!--django的特殊请求 下面的name也是-->
-          <input name="待办事项" class="form-control mr-sm-2" type="text" placeholder="请输入待办事项" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">添加</button>
-        </form>           <!--表单专门发送post请求-->  {% endcomment %}
+        </ul>
       </div>
     </nav>
-
+    
     <main role="main" class="container">
         {% block 主体 %}{% endblock %}
     </main>
 
-    <button type="button" id="btnScroll" class="btn btn-warning btn-lg" onclick="toUp()"> 
+    <button type="button" id="btnScroll" class="btn btn-danger btn-lg" onclick="toUp()"> 
         <strong>Top</strong> 
     </button>
+
+    <!-- Footer -->
+    <section id="footer">
+      <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <h5>相关站点</h5>
+            <ul class="list-unstyled quick-links">
+              <li><a href="https://vjudge.net/"><i class="fa fa-angle-double-right"></i>vjudge</a></li>
+              <li><a href="http://codeforces.com/"><i class="fa fa-angle-double-right"></i>codeforces</a></li>
+              <li><a href="http://acm.hdu.edu.cn/"><i class="fa fa-angle-double-right"></i>hduoj</a></li>
+              <li><a href="http://poj.org/"><i class="fa fa-angle-double-right"></i>POJ</a></li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <h5>ACM BLOG</h5>
+            <ul class="list-unstyled quick-links">
+              <li><a href="https://blog.csdn.net/pengwill97?viewmode=list"><i class="fa fa-angle-double-right"></i>pengwill</a></li>
+              <li><a href="http://nightwing.top/"><i class="fa fa-angle-double-right"></i>Robin</a></li>
+              <li><a href="http://www.cnblogs.com/SCaryon/"><i class="fa fa-angle-double-right"></i>SCaryon</a></li>
+              <li><a href="https://blog.csdn.net/feynman1999"><i class="fa fa-angle-double-right"></i>feynman1999</a></li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <h5>ACM BLOG</h5>
+            <ul class="list-unstyled quick-links">
+              <li><a href="http://www.cnblogs.com/wmrv587"><i class="fa fa-angle-double-right"></i>wmr</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+            <p class="h6">&copy All right Reversed.<a class="ml-2" href="#">AOJ</a></p>
+          </div>
+          </hr>
+        </div>	
+      </div>
+    </section>
+  
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {% comment %} <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> {% endcomment %}
+    <script src="{% static 'oj_base/bootstrap-4.1.3/js/bootstrap.min.js' %}" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="{% static 'oj_base/js/scroll.js' %}"></script>
+    <script src="{% static 'oj_base/js/footer.js' %}"></script>
 
   </body>
 </html>

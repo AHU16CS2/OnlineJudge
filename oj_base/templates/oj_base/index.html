@@ -5,23 +5,53 @@
 {% block  标题 %}Welcome AOJ {%endblock%}
 {% block  主页高亮 %}active {%endblock%}
 
+
 {% block  主体 %}
       <br>
-      <!--信息警告-->
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong><center>登录以访问更多内容！(╥╯^╰╥)</center></strong> 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+      <!--信息-->
+      <div class="alert alert-{% if user.is_authenticated %}primary{% else %}warning{% endif %} alert-dismissible fade show" role="alert">
+        <strong><center>
+            {% if user.is_authenticated %}
+              {% if user.is_staff %}
+                {% if user.is_superuser %}
+                    尊敬的超超...超级管理员，AOJ随时待命┭┮﹏┭┮
+                    {% else %}
+                    尊敬的管理员，欢迎━(*｀∀´*)ノ亻!
+                {% endif %}
+              {% else %}
+                欢迎来到AOJ━(*｀∀´*)ノ亻!
+              {% endif %}
+            {% else %}
+              登录以访问更多内容！(╥╯^╰╥)
+            {% endif %}
+        </center></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
       </div><br>
-      <!--按钮组 分类-->
-      <div class="btn-group btn-group-lg" style="float:right;">
-        <a href="{% url 'oj_base:主页' %}" class="btn btn-danger {{所有分类高亮}}" >所有分类</a> <!---->
-        {% for item in 新闻类别们 %}
-          <a href="{% url 'oj_base:新闻种类' item.id %}" class="btn btn-info {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
-        {% endfor %}
+
+      <!--按钮组 分页 分类 -->
+      <div>
+        <div class="btn-group btn-group-lg" style="float:left;">
+          <a href="{% ifnotequal 当前页数 1 %}{% url 'oj_base:主页' 当前页数|add:-1 %}{% endifnotequal %}" class="btn btn-dark" title="{% ifequal 当前页数 1 %}到头啦 {% else %} 上一页 {% endifequal %}">
+            <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+          </a>
+          <a href="#" class="btn btn-dark">当前：第{{当前页数}}页</a>
+          <a href="{% ifnotequal 当前页数 总页数 %}{% url 'oj_base:主页' 当前页数|add:1 %}{% endifnotequal %}" class="btn btn-dark" title="{% ifequal 当前页数 总页数 %}到头啦 {% else %} 下一页{% endifequal %}">
+            <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+          </a>
+           <a href="#" class="btn btn-dark">跳转至</a>
+        </div>
+        <div class="btn-group btn-group-lg" style="float:right;">
+          <a href="{% url 'oj_base:主页' 1 %}" class="btn btn-dark {{所有分类高亮}}" >所有分类</a> <!---->
+          {% for item in 新闻类别们 %}
+            <a href="{% url 'oj_base:新闻种类' item.id%}" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+          {% endfor %}
+        </div>
       </div>
       <br><br><br>
+
+
       <!--主体部分-->
       <div class="card-columns">
         {% for item in 新闻们%}
@@ -34,11 +64,17 @@
                 </div>
               </div>
             {% else %}
-              <div class="card">
+              <div class="card" style="background: linear-gradient(to right,#ebf6ff,#ffffff);">
                   <!-- Heading -->
                   <div class="card-body">
                     <h4 class="card-title">{{item.title}}</h4>        <!--.pk是取主键 这里是newsType的id-->
-                    <h6 class="card-subtitle text-dark" style="float:right;">分类：<a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>&nbsp;&nbsp;&nbsp; {{item.created_time|date:"Y-m-d H:i:s"}}</h6>
+                    <h6 class="card-subtitle text-dark" style="float:right;">
+                      <span class="oi oi-tags" title="tags" aria-hidden="true"></span>
+                      <a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>
+                      &nbsp;&nbsp;&nbsp;
+                      <span class="oi oi-timer" title="timer" aria-hidden="true"></span> 
+                      {{item.created_time|date:"Y-m-d H:i:s"}}
+                    </h6>
                   </div>
                   <!-- Image -->
                   <img class="card-img-top" src="{% static 'oj_base/images/' %}{{新闻们的默认图片|random}}" alt="">
@@ -46,20 +82,21 @@
                   <div class="card-body">
                     <p class="card-text">{{item.content | truncatechars:450}}</p> <!-- 这里之后需要自定义过滤器 取min(450,30%*content)-->
                     <!-- Links -->
-                    {% comment %} {% if 管理员 %}  {% endcomment %}
-                    <a href="{% url 'oj_base:编辑新闻' item.id  %}" class="btn btn-danger" >编辑</a>
-                    {% comment %} {% endif %} {% endcomment %}
+                    {% if user.is_staff %}
+                      <a href="{% url 'oj_base:编辑新闻' item.id  %}" class="btn btn-danger" >编辑</a>
+                    {% endif %}
                     <a href="{% url 'oj_base:新闻' item.id  %}" class="btn btn-primary" style="float:right; margin-bottom:20px;">查看全文</a>
                   </div>
               </div>
             {% endif %}
         {% endfor %}
-      </div>
+      </div><br>
       <!--对于没有文章时的处理-->
       {% if 新闻总数 %}
-            <h3 class="text-center">共有{{新闻总数}}篇该类别的新闻</h3>
+            {% load oj_base_extra1 %}
+            {% include "./alert/notice.html" with 信息=新闻总数|oj_base_extra1_filter1 %}
       {% else %}
-            {% include "./notice.html" with 信息="暂无该类别的新闻，敬请期待！"%}
+            {% include "./alert/notice.html" with 信息="暂无该类别的新闻，敬请期待！（づ￣3￣）づ╭❤～"  %}
       {% endif %}
       <br><br><br>
 {% endblock %}

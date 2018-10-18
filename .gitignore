@@ -3,4 +3,6 @@
 
 *.sqlite3
 
-/migrations
+migrations/
+ 
+*.json
