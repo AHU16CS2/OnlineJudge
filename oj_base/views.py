@@ -32,8 +32,8 @@ def index(request, list_id):  #总新闻列表
     page_capacity=3 # 每页数量
     rows1 = list(new.objects.filter(is_deleted=False))  #注意get与filter的区别
     print(len(rows1))
-    newsnum = len(rows1)
-    list_num = math.ceil(newsnum/page_capacity)
+    newsnum = len(rows1)  # 所有新闻的数量
+    list_num = math.ceil(newsnum/page_capacity)  # 页数
     if (list_id > list_num or list_id < 1 ) and list_num!=0 :
         return render(request,'oj_base/alert/not_exist.html')
     if list_id == list_num:
