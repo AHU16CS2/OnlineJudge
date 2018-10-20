@@ -1,0 +1,34 @@
+{% extends "oj_base/base.html" %}
+{% load static %}
+{% block css%} {% static 'oj_base/css/news.css' %} {% endblock %}
+
+{% block  标题 %}修改个人信息 {%endblock%}
+{% block  注册高亮 %}active {%endblock%}
+
+{% block 主体 %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4-col-xs-offset-4">
+                <div class="panel pannel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            修改个人信息
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {% for field in info_form %}
+                                <label for ="{{ field.id_for_label }}">{{field.label}}</label>
+                                {{field}}
+                                <p class="text-danger">{{field.errors.as_text}}</p>
+                            {% endfor %}
+                            <span class="pull-left text-danger">{{ info_form.non_field_errors}}</span>
+                            <input type="submit" value="提交修改" class="btn btn-primary pull-right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+Genders = (
+  ( '男','男'),
+  ( '女','女'),
+)
+Nations = (
+    ('中国','中国'),
+    ('美国', '美国'),
+    ('加拿大', '加拿大'),
+    ('英国', '英国'),
+
+)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
