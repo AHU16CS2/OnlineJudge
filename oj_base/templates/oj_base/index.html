@@ -39,7 +39,7 @@
             <a href="{% url 'oj_base:主页'%}?type={{item.id}}&page=1" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
           {% endfor %}
         </div>
-      </div><br>
+      </div><br><br>
       <!--主体部分-->
       <div class="card-columns">
         {% for item in 新闻们%}

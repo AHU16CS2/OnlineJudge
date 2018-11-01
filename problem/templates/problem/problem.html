@@ -4,21 +4,65 @@
 {% block  题目列表高亮 %} active {%endblock%}
 
 {% block  主体 %}
-      <br>
-        <div class="table-responsive">
-            <h1>{{problem.Headline}}</h1>
-            <h4>时间限制：{{problem.Time_Limit}}<br>内存限制：{{problem.Memory_Limit}}</h4>
-            <h1>题目描述</h1>
-            <h4>{{problem.Prob_Description}}</h4>
-            <h1>输入</h1>
-            <h4>{{problem.Input}}</h4>
-            <h1>输出</h1>
-            <h4>{{problem.Output}}</h4>
-            <h1>样例输入</h1>
-            <h4>{{problem.Eg_Input}}</h4>
-            <h1>样例输出</h1>
-            <h4>{{problem.Eg_Output}}</h4>
-            <h1>作者与上传时间</h1>
-            <h4>{{problem.Author}}于{{problem.Up_time}}上传</h4>
-        </div>
+    <br>
+    <h1 class="text-center text-white">problem{{problem.id}}.&nbsp  {{problem.Headline}}</h1>
+    <br>
+    <h5 class="text-center text-white">时间限制：{{problem.Time_Limit}}ms <br>内存限制：{{problem.Memory_Limit}}MB</h5>
+    <h5 class="text-right text-black"><span class="oi oi-tag" title="tag" aria-hidden="true"></span>
+    {% for Dict in 标签 %}
+        <a class="text-dark" href="{% url 'problem:题目列表' %}?type={{Dict.id}}&page=1">{{Dict.Tag_name}}</a>
+    {% endfor %}
+    </h5>
+    <br>
+    <div class="container" >
+        <div class="card">
+            <div class="card-header">
+                <h4>Description</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{problem.Prob_Description}}</p>
+            </div>
+        </div><br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Input</h4>
+            </div>
+            <div class="card-body">
+                    <p class="card-text">{{problem.Input}}</p>
+            </div>
+        </div><br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Output</h4>
+            </div>        
+            <div class="card-body">
+                    <p class="card-text">{{problem.Output}}</p>
+            </div>
+        </div><br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Sample Input</h4>
+            </div>           
+            <div class="card-body">
+                    <p class="card-text">{{problem.Eg_Input}}</p>
+            </div>
+        </div><br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Sample Output</h4>
+            </div>           
+            <div class="card-body">
+                    <p class="card-text">    {{problem.Eg_Output}}</p>
+            </div>
+        </div><br>
+        <div class="card">
+            <div class="card-header">
+                <h4>作者与上传时间</h4>
+            </div>           
+            <div class="card-body">
+                    <p class="card-text"> {{problem.Author}}于{{problem.created_time}} 上传</p>
+                    <p class="card-text"> 最后修改于{{problem.last_updated_time}}</p>
+            </div>
+        </div><br>
+    </div>
 {% endblock %}
