@@ -5,53 +5,41 @@
 {% block  标题 %}Welcome AOJ {%endblock%}
 {% block  主页高亮 %}active {%endblock%}
 
-
 {% block  主体 %}
-      <br>
-      <!--信息-->
-      <div class="alert alert-{% if user.is_authenticated %}primary{% else %}warning{% endif %} alert-dismissible fade show" role="alert">
-        <strong><center>
-            {% if user.is_authenticated %}
-              {% if user.is_staff %}
-                {% if user.is_superuser %}
-                    尊敬的超超...超级管理员，AOJ随时待命┭┮﹏┭┮
-                    {% else %}
-                    尊敬的管理员，欢迎━(*｀∀´*)ノ亻!
-                {% endif %}
-              {% else %}
-                欢迎来到AOJ━(*｀∀´*)ノ亻!
-              {% endif %}
-            {% else %}
-              登录以访问更多内容！(╥╯^╰╥)
-            {% endif %}
-        </center></strong> 
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div><br>
-
-      <!--按钮组 分页 分类 -->
-      <div>
+      <!--按钮组 分页 分类 --> 
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group btn-group-lg" style="float:left;">
-          <a href="{% ifnotequal 当前页数 1 %}{% url 'oj_base:主页' 当前页数|add:-1 %}{% endifnotequal %}" class="btn btn-dark" title="{% ifequal 当前页数 1 %}到头啦 {% else %} 上一页 {% endifequal %}">
-            <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
-          </a>
-          <a href="#" class="btn btn-dark">当前：第{{当前页数}}页</a>
-          <a href="{% ifnotequal 当前页数 总页数 %}{% url 'oj_base:主页' 当前页数|add:1 %}{% endifnotequal %}" class="btn btn-dark" title="{% ifequal 当前页数 总页数 %}到头啦 {% else %} 下一页{% endifequal %}">
-            <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
-          </a>
-           <a href="#" class="btn btn-dark">跳转至</a>
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'oj_base:主页'%}?type={{当前分类}}&page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 新闻总数 %}
+          <a href="#" class="btn btn-dark">当前：第{{当前页数}}页 , 共{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'oj_base:主页'%}?type={{当前分类}}&page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %} 
         </div>
         <div class="btn-group btn-group-lg" style="float:right;">
-          <a href="{% url 'oj_base:主页' 1 %}" class="btn btn-dark {{所有分类高亮}}" >所有分类</a> <!---->
+          <a href="{% url 'oj_base:主页'%}?type=0&page=1" class="btn btn-dark {% ifequal 0 当前分类 %}active{% endifequal %}" >所有分类</a> <!---->
           {% for item in 新闻类别们 %}
-            <a href="{% url 'oj_base:新闻种类' item.id%}" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
+            <a href="{% url 'oj_base:主页'%}?type={{item.id}}&page=1" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.type_name}}</a>
           {% endfor %}
         </div>
-      </div>
-      <br><br><br>
-
-
+      </div><br><br>
       <!--主体部分-->
       <div class="card-columns">
         {% for item in 新闻们%}
@@ -70,7 +58,7 @@
                     <h4 class="card-title">{{item.title}}</h4>        <!--.pk是取主键 这里是newsType的id-->
                     <h6 class="card-subtitle text-dark" style="float:right;">
                       <span class="oi oi-tags" title="tags" aria-hidden="true"></span>
-                      <a href="{% url 'oj_base:新闻种类' item.newstype.pk %}" class="text-primary">{{item.newstype}}</a>
+                      <a href="{% url 'oj_base:主页'%}?type={{item.newstype.pk}}" class="text-primary">{{item.newstype}}</a>
                       &nbsp;&nbsp;&nbsp;
                       <span class="oi oi-timer" title="timer" aria-hidden="true"></span> 
                       {{item.created_time|date:"Y-m-d H:i:s"}}
@@ -91,6 +79,42 @@
             {% endif %}
         {% endfor %}
       </div><br>
+      <!--页面跳转-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" style="float:right">
+        <div class="btn-group btn-group-lg">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'oj_base:主页'%}?type={{当前分类}}&page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 新闻总数 %}
+          <a href="#" class="btn btn-dark">当前：第{{当前页数}}页 , 共{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'oj_base:主页'%}?type={{当前分类}}&page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %} 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <form method="POST" class="btn-group btn-group-lg" style="float:right;">
+            {% csrf_token %}
+            <input name="跳转至页数" type="text" class="form-control" placeholder="页数" aria-label="Input group example" aria-describedby="btnGroupAddon2" style="width:70px;height:47px;padding:6px;font: 20px arial;display:inline;">
+            <input type="hidden" name="当前分类" value="{{当前分类}}">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn-dark">跳转</button>
+          </form>
+        </div>
+      </div><br><br><br><br>
       <!--对于没有文章时的处理-->
       {% if 新闻总数 %}
             {% load oj_base_extra1 %}
@@ -98,6 +122,6 @@
       {% else %}
             {% include "./alert/notice.html" with 信息="暂无该类别的新闻，敬请期待！（づ￣3￣）づ╭❤～"  %}
       {% endif %}
-      <br><br><br>
+      <br>
 {% endblock %}
 
