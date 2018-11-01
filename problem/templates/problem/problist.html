@@ -3,98 +3,124 @@
 {% block  标题 %} 题目列表 {%endblock%}
 {% block  题目列表高亮 %} active {%endblock%}
 
+
 {% block  主体 %}
       <br>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead class="thead-light">
-              <tr>
-                <th>题号</th>
-                <th>题目名称</th>
-                <th>AC比率</th>
-              </tr>
-            </thead>
-            <tbody class="no-underline">
-            {%for problem in problems%}
+      <!--分页、分类-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group btn-group-lg" style="float:left;">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 题目总数 %}
+          <a href="#" class="btn btn-dark">当前 第{{当前页数}}/{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %} 
+        </div>
+        <div class="btn-group btn-group-lg" style="float:right;">
+          <a href="{% url 'problem:题目列表'%}?type=0&page=1" class="btn btn-dark {% ifequal 0 当前分类 %}active{% endifequal %}" >所有分类</a> <!---->
+          {% for item in 题目类别们 %}
+            <a href="{% url 'problem:题目列表'%}?type={{item.id}}&page=1" class="btn btn-dark {% ifequal item.id 当前分类 %}active{% endifequal %}" >{{item.Tag_name}}</a>
+          {% endfor %}
+        </div>
+      </div><br><br>
+
+      <!--题目部分-->
+      <div class="table-responsive">
+        <table class="table table-striped table-light">
+          <thead class="thead-dark">
+            <tr>
+              <th>题号</th>
+              <th>题目名称</th>
+              <th>AC比率</th>
+              <th>标签</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for problem in problems %}
                 <tr>
                     <td class="text-dark" scope="row">
-                        <a class="nav-link" href="{% url 'problem:题目描述' problem.Pid %}">{{problem.Pid}}</a>
+                        <span class="oi oi-circle-check" title="circle-check" aria-hidden="true"></span>&nbsp
+                        <span class="oi oi-arrow-thick-right" title="arrow-thick-right" aria-hidden="true"></span>&nbsp
+                        <b><a class="text-primaty" href="{% url 'problem:题目描述' problem.id %}">{{problem.id}}</a></b>
                     </td>
-                    <td class="text-dark" id="line-through">
-                        <a class="nav-link" href="{% url 'problem:题目描述' problem.Pid %}">{{problem.Headline}}</a>
+                    <td class="text-dark">
+                        <b><a class="text-primaty" href="{% url 'problem:题目描述' problem.id %}">{{problem.Headline}}</a></b>
                     </td>
-                    <td class="text-secondary">不可编辑</td>
+                    {% load div_with_percent %}
+                    <td class="text-danger"><b>{% if problem.Total_submision %}{{ problem.Total_AC|div_with_percent:problem.Total_submision}}%({{problem.Total_AC}}/{{problem.Total_submision}}){% else %}暂无记录{% endif %}</b></td>
+                    {% load display_tags %}
+                    <td class="text-dark">  <span class="oi oi-tag" title="tag" aria-hidden="true"></span>&nbsp 
+                      <b>
+                          {% for item in 标签们|display_tags:forloop.counter0 %}
+                          <a class="text-dark" href="{% url 'problem:题目列表' %}?type={{item.id}}&page=1">{{item.Tag_name}}</a>
+                          {% endfor %}
+                      </b>
+                    </td>
                 </tr>
-            {%endfor%}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div><br>
 
-              {% comment %} {% for 每一件事 in 清单 %}
-                {% if  每一件事.done %}
-                  <tr class="table-dark">
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td class="text-dark" id="line-through">{{ 每一件事.thing }}</td>
-                    <td class="text-secondary">不可编辑</td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="未完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >撤销</button>
-                      </form>   
-                    </td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm " >删除</button>
-                      </form>   
-                    </td>
-                  </tr>     
-                {% else %}
-                  <tr>
-                    <td class="text-dark" scope="row">{{forloop.counter}}</td>
-                    <td>{{ 每一件事.thing }}</td>
-                    <td><a href="{% url 'todolist:编辑' 每一件事.id %}">
-                    <button type="submit" class="btn btn-primary btn-sm" >编辑</button>
-                    </a></td>
-                    <td>
-                      <form method="POST" action="{% url 'todolist:划掉' 每一件事.id %}">
-                        {% csrf_token %}
-                        <input name="完成状态" type="hidden" value="已完成">
-                        <button type="submit" class="btn btn-primary btn-sm " >划掉</button>
-                      </form>   
-                    </td>
-
-                    <td>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{forloop.counter}}">
-                        删除
-                      </button>
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label">删除确认</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              确定要删除未办事项:<strong class="text-danger">{{每一件事.thing}}</strong>吗？
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                              <form method="POST" action="{% url 'todolist:删除' 每一件事.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">确认删除</button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>     
-                {% endif %}
-              {% endfor %} {% endcomment %}
-            </tbody>
-          </table>
+      <!--页面跳转-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" style="float:right">
+        <div class="btn-group btn-group-lg">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 题目总数 %}
+          <a href="#" class="btn btn-dark">当前 第{{当前页数}}/{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %} 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <form method="POST" class="btn-group btn-group-lg" style="float:right;">
+            {% csrf_token %}
+            <input name="跳转至页数" type="text" class="form-control" placeholder="页数" aria-label="Input group example" aria-describedby="btnGroupAddon2" style="width:70px;height:47px;padding:6px;font: 20px arial;display:inline;">
+            <input type="hidden" name="当前分类" value="{{当前分类}}">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn-dark">跳转</button>
+          </form>
         </div>
+      </div><br><br><br><br>
+      <!--对于没有题目时的处理-->
+      {% if 题目总数 %}
+            {% load problem_extra %}
+            {% include "oj_base/alert/notice.html" with 信息=题目总数|problem_extra %}
+      {% else %}
+            {% include "oj_base/alert/notice.html" with 信息="暂无该类别的题目，敬请期待！（づ￣3￣）づ╭❤～"  %}
+      {% endif %}
+      <br>
 {% endblock %} 
