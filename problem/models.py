@@ -25,7 +25,10 @@ class Problems(models.Model):
     Total_AC = models.IntegerField("AC次数",default=0)                         #本题总AC次数,根据states表
     Tags=models.ManyToManyField(Tag,verbose_name="题目标签")                   #题目标签（分类），多对多关系，自动生成对应表
     is_deleted = models.BooleanField(default=False)  # 可以理解为划掉操作 没有真正的删除 起到一个缓冲的作用 避免数据丢失
+    Judge_data=models.FileField(null=True, blank=True)
 
+    def __str__(self):
+        return str(self.id)
 
 
 

@@ -11,10 +11,39 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from .models import Profile
 from .forms import LoginForm, RegForm, InfoForm
+from submission.models import Status
 
+#User.last_login
+def user_info(request,nickname):
 
-def user_info(request):
-    context = {}
+    profile = Profile.objects.filter(nickname=nickname)
+    print("len = ",len(profile))
+    status = Status.objects.filter(Author=profile[0].id)
+    print("-------Total---------",len(status))
+
+    #这里应该加一个filter,判断提交中的AC数
+    status_ac = Status.objects.filter(Author=profile[0].id).filter(Judge_Status="Accepted")
+    print("-------AC---------", len(status_ac))
+    profile[0].AC_num = len(status_ac)
+    profile[0].Submit_num=len(status)
+
+    status_prob = Status.objects.filter(Author=profile[0].id).values('Prob_ID').distinct()
+    print("----------------", status_prob)
+    print("-------Total_prob---------", len(status_prob))
+    print("-------++++++---------", status_prob.values('Prob_ID'))
+    profile[0].Submit_prob_num=len(status_prob)
+    status_ac_prob = Status.objects.filter(Author=profile[0].id).filter(Judge_Status="Accepted").values('Prob_ID').distinct()
+    print("-------Total_ac_prob---------", len(status_ac_prob))
+    print("-------++++++---------", status_ac_prob.values('Prob_ID'))
+    profile[0].AC_prob_num=len(status_ac_prob)
+
+    context={
+             #"url_part":profile,
+            "profile":profile[0],
+            "status_prob": status_prob,
+            "status_ac_prob":status_ac_prob,
+         }
+    print("-------Total_ac_prob---------", len(status_ac_prob)),
     return render(request, 'account/user_info.html', context)
 
 
@@ -47,6 +76,10 @@ def register(request):
             #注册
             user=User.objects.create_user(username, email, password)
             user.save()
+            #nickname_new=username
+            #profile, created = Profile.objects.get_or_create( user==user)  # 注意这个坑，只用get会出现Profile matching query does not exist.错误
+            #profile.nickname = nickname_new
+            #profile.save()
             #登录
             user=auth.authenticate(username=username,password=password)
             auth.login(request, user)

@@ -19,8 +19,9 @@ class Profile(models.Model):
     Gender = models.CharField(max_length=10, verbose_name='性别')
     Nation = models.CharField(max_length=30, verbose_name='国籍')
     Motto = models.TextField(verbose_name='个人签名')
-    AC_num = models.IntegerField(default=0, verbose_name='通过题数')
-    Submit_num = models.IntegerField(default=0, verbose_name='提交题数')
-
+    AC_num = models.IntegerField(default=0, verbose_name='通过次数')
+    Submit_num = models.IntegerField(default=0, verbose_name='提交次数')
+    AC_prob_num = models.IntegerField(default=0, verbose_name='通过题数')
+    Submit_prob_num = models.IntegerField(default=0, verbose_name='提交题数')
     def __str__(self):
         return '<Profile: %s for %s>' % (self.nickname, self.user.username)
