@@ -56,9 +56,10 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navdrop" data-toggle="dropdown" data-hover="dropdown"><span class="oi oi-person" title="person" aria-hidden="true" ></span> {{user.username}}</a>
               <div class="dropdown-menu" aria-labelledby="navdrop">
-                  <a href="{% url 'account:user_info' %}" class="dropdown-item">个人信息</a>
+                  <a href="{% url 'account:user_info' user.username %}" class="dropdown-item">个人信息</a>
+                  <a href="{% url 'account:change_user_info' %}" class="dropdown-item">添加信息</a>
                   {% if user.is_staff %}
-                      <a href="#" class="dropdown-item">题目管理</a>
+                      <a href="http://127.0.0.1:8000/admin/problem/problems/" class="dropdown-item">题目管理</a>
                           {% if user.is_superuser %}
                               <a href="{% url 'admin:index' %}" class="dropdown-item">后台管理</a>
                           {% endif %}

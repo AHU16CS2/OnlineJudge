@@ -52,7 +52,7 @@
             {% endfor %}
             <span class="pull-left text-danger">{{ login_form.non_field_errors}}</span>
             <br>
-            <h6 class="card-title text-left">还木有账号？<a>点此注册</a></h6>
+            <h6 class="card-title text-left">还木有账号？<a href="{% url 'account:注册' %}">点此注册</a></h6>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">登录</button>
           </form>
         </div>
