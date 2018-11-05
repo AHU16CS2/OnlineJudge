@@ -20,6 +20,7 @@ def tianjia(times):
         new_row.Tags.set(str(random.randint(1,3)))
 
 def problist(request):
+    #tianjia(5000)
     if request.method =="POST":
         tmp_type=request.POST['当前分类']
         tmp_page=request.POST['跳转至页数']

@@ -1,34 +1,64 @@
 {% extends "oj_base/base.html" %}
 {% load static %}
-{% block css%} {% static 'oj_base/css/news.css' %} {% endblock %}
+{% block css%} {% static 'account/css/login.css' %} {% endblock %}
 
-{% block  标题 %}修改个人信息 {%endblock%}
-{% block  注册高亮 %}active {%endblock%}
+{% block  标题 %}修改个人信息  {% endblock %}
+{% block  修改个人信息高亮 %}active {% endblock %}
 
 {% block 主体 %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-4-col-xs-offset-4">
-                <div class="panel pannel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            修改个人信息
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            {% for field in info_form %}
-                                <label for ="{{ field.id_for_label }}">{{field.label}}</label>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-7 mx-auto" >
+      <div id="demo" class="my-5 carousel slide" data-ride="carousel">
+        <!-- 指示符 -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+        <!-- 轮播图片 -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'oj_base/images/ahu2.png' %}"  height="364" width='650'>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'oj_base/images/ahu1.png' %}"  height="364" width='650'>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'oj_base/icons/icpc_logo.png' %}" height="364" width='650'>
+          </div>
+        </div>
+        <!-- 左右切换按钮 -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3 class="card-title text-center">修改个人信息</h3>
+          <form class="form-signin" action="" method="POST">
+            {% csrf_token %}
+              {% for field in info_form %}
+            <div class="form-label-group">
+              <label for ="{{ field.id_for_label }}">{{field.label}}</label>
                                 {{field}}
                                 <p class="text-danger">{{field.errors.as_text}}</p>
-                            {% endfor %}
-                            <span class="pull-left text-danger">{{ info_form.non_field_errors}}</span>
-                            <input type="submit" value="提交修改" class="btn btn-primary pull-right">
-                        </form>
-                    </div>
-                </div>
             </div>
+            {% endfor %}
+            <span class="pull-left text-danger">{{ login_form.non_field_errors}}</span>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">提交修改</button>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
+
+
+
 {% endblock %}
