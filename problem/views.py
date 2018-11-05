@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
+from django.http import HttpResponseRedirect
 import math,random
-from .models import Problems,Tag
+from .models import *
+from submission.models import *
 
 # Create your views here.
 
@@ -67,8 +69,27 @@ def problist(request):
             }
     return render(request,'problem/problist.html',Dict)
 
-
-
+def submit(request):    # 提交代码时的函数
+    author = str(request.user.username)
+    code = request.POST.get('code')
+    # print(code)
+    id = int(request.POST.get('id'))
+    language = request.POST.getlist('language') # 取得的是list
+    language = ''.join(language)
+    new_row=Status(     
+                        Judge_Status="Pending",
+                        Compile_Error_Info="None",
+                        Prob_ID=Problems.objects.get(pk=id),
+                        Exe_Time='0',
+                        Exe_Memory='0',
+                        Code_Len=len(code),
+                        Language=language,
+                        Author=User.objects.get(username=author),
+                        Code=code,
+                )
+    new_row.save()
+    return HttpResponseRedirect('/statuslist/')
+    # return HttpResponseRedirect('/status/id?')问题在于得到评测的id号
 
 def problem_page(request,每个题目_id):
     problem = Problems.objects.get(pk=每个题目_id)
