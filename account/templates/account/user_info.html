@@ -1,0 +1,46 @@
+{% extends "oj_base/base.html" %}
+
+{% block  标题 %}个人信息 {%endblock%}
+
+{% block 主体 %}
+    <TR>
+<TD align=center>
+	<TABLE cellSpacing=0 cellPadding=0 width=90% border=0>
+	<TR>
+	<TD align=center>
+		<h1 style="color:black" align=center>{{profile.nickname}}</h1>
+		<a style="color:black" align=center>性别：&nbsp;{{profile.Gender}}</a><br>
+		<i style="color:black">from: {{profile.Nation}}&nbsp;&nbsp;&nbsp;&nbsp;last_login on {{profile.user.last_login}}</i>
+		<hr>
+		<p>MOTTO:&nbsp;<br>{{profile.Motto}}</p>
+		<hr>
+		<table width=400 align=center style="font-family:Arial;font-weight:bold;font-size:12px;color:black">
+			<tr><td>Rank</td><td align=center>**</td></tr>
+			<tr><td>Problems Submitted</td><td align=center>{{profile.Submit_prob_num}}</td></tr>
+			<tr><td>Problems Solved</td><td align=center>{{profile.AC_prob_num}}</td></tr>
+			<tr><td>Submissions</td><td align=center>{{profile.Submit_num}}</td></tr>
+			<tr><td>Accepted</td><td align=center>{{profile.AC_num}}</td></tr>
+		</table>
+		<hr>
+
+		<h3><font color=black>List of solved problems</font></h3>
+			{%for status in status_ac_prob%}
+                <a class="text-success" href="{% url 'problem:题目描述' status.Prob_ID %}">&nbsp;&nbsp;{{status.Prob_ID}}</a>
+            {% endfor %}
+            <br>
+		<h3><font color=black>List of submitted problems</font></h3>
+		{%for status in status_prob%}
+                <a class="text-danger" href="{% url 'problem:题目描述' status.Prob_ID %}">&nbsp;&nbsp;{{status.Prob_ID}}</a>
+		{% endfor %}
+		<hr>
+		<!-- <h1>Neighbours</h1> -->
+			</TD>
+	</TR>
+	</TABLE>
+</TD>
+</TR>
+
+	{%ifequal profile.user.username user.username%}
+    <a href="{% url 'account:change_user_info' %}" class="btn btn-primary btn-block pull-right">修改个人信息</a>
+	{%endifequal%}
+{% endblock %}

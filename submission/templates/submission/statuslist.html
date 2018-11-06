@@ -1,0 +1,134 @@
+{% extends "oj_base/base.html" %}
+
+{% block  标题 %} 题目列表 {%endblock%}
+{% block  评测记录高亮 %} active {%endblock%}
+
+
+{% block  主体 %}
+      <br>
+      <!--分页、分类-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group btn-group-lg" style="float:left;">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'submission:评测记录'%}?page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 评测总数 %}
+          <a href="#" class="btn btn-dark">当前 第{{当前页数}}/{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'submission:评测记录'%}?page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div><br><br>
+
+      <!--评测状态列表部分-->
+      <div class="table-responsive">
+        <table class="table table-striped table-light">
+          <thead class="thead-dark">
+            <tr>
+              <th>提交号</th>
+                <th>提交时间</th>
+                <th>评测状态</th>
+                <th>题号</th>
+                <th>执行时间</th>
+                <th>执行内存</th>
+                <th>代码长度</th>
+                <th>语言</th>
+                <th>作者</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for status in statuses %}
+
+                <tr>
+                    <td class="text-dark" scope="row">
+                        <b><a class="text-primaty" href="{% url 'submission:评测状态' status.Status_ID %}">{{status.Status_ID}}</a></b>
+                    </td>
+                    <td class="text-danger">
+                        <b><a class="text-primaty" >{{status.Submit_Time}}</a></b>
+                    </td>
+                    <td class="text-dark">
+                        <b><a class="text-primaty" href="{% url 'submission:评测状态' status.Status_ID %}">{{status.Judge_Status}}</a></b>
+                    </td>
+                    <td class="text-dark">
+                        <b><a class="text-primaty" href="{% url 'problem:题目描述' status.Prob_ID %}">{{status.Prob_ID}}</a></b>
+                    </td>
+                    <td class="text-success">
+                        <b><a class="text-primaty" >{{status.Exe_Time}}</a></b>
+                    </td>
+                    <td class="text-success">
+                        <b><a class="text-primaty" >{{status.Exe_Memory}}</a></b>
+                    </td>
+                    <td class="text-success">
+                        <b><a class="text-primaty">{{status.Code_Len}}</a></b>
+                    </td>
+                    <td class="text-black">
+                        <b><a class="text-primaty" >{{status.Language}}</a></b>
+                    </td>
+                    <td class="text-dark">
+                        {%if request.user.is_authenticated%}
+                        <b><a class="text-primaty" href="{% url 'account:user_info' status.Author %}">{{status.Author}}</a></b>
+                        {%else%}
+                        <b><a class="text-primaty">{{status.Author}}</a></b>
+                        {%endif%}
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div><br>
+
+      <!--页面跳转-->
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" style="float:right">
+        <div class="btn-group btn-group-lg">
+          {% if 当前页数 > 1 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:-1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-left" title="arrow-circle-left" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          {% if 题目总数 %}
+          <a href="#" class="btn btn-dark">当前 第{{当前页数}}/{{总页数}}页</a>
+          {% else %}
+          <a href="#" class="btn btn-dark">ლ(′◉❥◉｀ლ)</a>
+          {% endif %}
+          {% if 当前页数 < 总页数 %}
+            <a href="{% url 'problem:题目列表'%}?type={{当前分类}}&page={{ 当前页数|add:1 }}" class="btn btn-dark" title="">
+              <span class="oi oi-arrow-circle-right" title="arrow-circle-right" aria-hidden="true"></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark" title="">
+              <span class="oi oi-x" title="x" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <form method="POST" class="btn-group btn-group-lg" style="float:right;">
+            {% csrf_token %}
+            <input name="跳转至页数" type="text" class="form-control" placeholder="页数" aria-label="Input group example" aria-describedby="btnGroupAddon2" style="width:70px;height:47px;padding:6px;font: 20px arial;display:inline;">
+            <input type="hidden" name="当前分类" value="{{当前分类}}">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn-dark">跳转</button>
+          </form>
+        </div>
+      </div><br><br><br><br>
+
+      <br>
+{% endblock %}

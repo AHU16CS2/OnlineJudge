@@ -1,0 +1,32 @@
+{% extends "oj_base/base.html" %}
+{% load static %}
+{% block css%} {% static 'oj_base/css/edit.css' %} {% endblock %}
+{% block  标题 %}增加/编辑新闻{% endblock %}
+{% block  主体 %}
+
+
+{% if not user.is_staff %}  <!--没有权限-->
+      {% include "oj_base/alert/NPa.html" %}
+{% else %}
+<br>
+      <form id="form-edit" method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="editnews"><h3>标题</h3></label>
+          <input type="text" name="已修改事项" class="form-control form-control-lg" id="editnews" value="{{待修改新闻的标题}}">
+          <small id="help" class="form-text text-muted">在这里编辑标题</small>
+        </div>
+        <div class="form-group">
+          <label for="editnews"><h3>内容</h3></label>
+          <input type="text" name="已修改事项" class="form-control form-control-lg" id="editnews" value="{{待修改新闻的内容}}">
+          <small id="help" class="form-text text-muted">在这里编辑内容</small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">提交</button>
+      </form>
+{% endif %}
+      
+
+
+
+
+{% endblock %}
