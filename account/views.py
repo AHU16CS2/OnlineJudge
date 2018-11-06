@@ -17,7 +17,10 @@ import math,random
 
 #User.last_login
 def user_info(request,nickname):
-
+    profile1, created = Profile.objects.get_or_create(
+        user=request.user)  # 注意这个坑，只用get会出现Profile matching query does not exist.错误
+    profile1.nickname = nickname
+    profile1.save()
     profile = Profile.objects.filter(nickname=nickname)
     print(list(profile))
     status = Status.objects.filter(Author=profile[0].id)
@@ -38,7 +41,7 @@ def user_info(request,nickname):
     print("-------Total_ac_prob---------", len(status_ac_prob))
     print("-------++++++---------", status_ac_prob.values('Prob_ID'))
     profile[0].AC_prob_num=len(status_ac_prob)
-
+    profile[0].nickname=request.user.username
     profile[0].save()
 
     context={
