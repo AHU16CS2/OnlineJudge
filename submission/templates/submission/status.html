@@ -18,10 +18,24 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;Author : <a href="{% url 'account:user_info' status.Author %}" target=_blank>{{status.Author}}</a>
                         </font>
                     </b>
-                </div>
-                <textarea id=usercode style="display:none;text-align:left;">
+            </div>
+                {% comment %} <textarea id=usercode style="display:none;text-align:left;">
                     aaaa
-                </textarea>
+                </textarea> {% endcomment %}
+
+
+                <div>   
+                    <pre class="prettyprint" style = 'background:#fff;'  >
+                    <br>
+            class Voila {
+                public:
+                // Voila
+                static const string VOILA = "Voila";
+
+                // will not interfere with embedded tags
+            }
+                    </pre>
+                </div>
 
 
 {% endblock %}

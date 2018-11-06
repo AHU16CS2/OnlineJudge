@@ -7,8 +7,8 @@ from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 
 # Create your views here.
 
-def status(request):
-    return render(request, 'submission/status.html')
+# def status(request):
+#     return render(request, 'submission/status.html')
 
 
 def tianjia(times):
@@ -32,6 +32,7 @@ def tianjia(times):
                         )
         new_row.save()
         #new_row.Tags.set(str(random.randint(1,3)))
+
 
 def statuslist(request):
     #tianjia(5)
