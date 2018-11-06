@@ -18,10 +18,13 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;Author : <a href="{% url 'account:user_info' status.Author %}" target=_blank>{{status.Author}}</a>
                         </font>
                     </b>
-                </div>
-                <textarea id=usercode style="display:none;text-align:left;">
-                    aaaa
-                </textarea>
+            </div>
+            <div>   
+                <pre class="prettyprint" style = 'background:#fff;font-size:16px; padding-left:16px'  >
+                <br>
+{{status.Code}} <!-- 这里不要改动了-->
+                </pre>
+            </div>
 
 
 {% endblock %}
