@@ -75,6 +75,7 @@
             </select> <br>
             <input type="submit" value = '提交'>
         </form> {% endcomment %}
+        {% if user.is_authenticated %}
         <form action = 'submit' method="POST">
             {% csrf_token %} 
             <div class="form-row">
@@ -96,6 +97,8 @@
             <input type="hidden" name = 'id' value ='{{problem.id}}'>
             <button type="submit" class="btn btn-lg btn-dark">Submit</button>
         </form>
-
+        {% else %}
+            {% include "oj_base/alert/notice.html" with 信息="先登录才能交题评测哦(≧∇≦)ﾉ" %}
+        {% endif %}
     </div>
 {% endblock %}
