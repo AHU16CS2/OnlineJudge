@@ -19,12 +19,12 @@ def tianjia(times):
                             #Submit_Time=,
                             Judge_Status="Accepted",
                             Compile_Error_Info="None",
-                            Prob_ID=Problems.objects.get(pk=1),
+                            Prob_ID=Problems.objects.get(pk=5),
                             Exe_Time=str(i),
                             Exe_Memory=str(i),
                             Code_Len=str(300+i),
                             Language="c++",
-                            Author=User.objects.get(pk=2),
+                            Author=User.objects.get(pk=1),
                             Code="******",
 
 
@@ -34,7 +34,7 @@ def tianjia(times):
         #new_row.Tags.set(str(random.randint(1,3)))
 
 def statuslist(request):
-    #tianjia(50)
+    #tianjia(5)
     if request.method == "POST":
         tmp_type = request.POST['当前分类']
         tmp_page = request.POST['跳转至页数']
@@ -46,7 +46,7 @@ def statuslist(request):
         page = 1
     else:
         page = int(page)
-    rows1 = list(Status.objects.filter())
+    rows1 = list(Status.objects.filter().order_by("-Submit_Time"))
     prob_num = len(rows1)  # 当前类别的题目数量
     page_num = math.ceil(prob_num / page_capacity)  # 当前类别的新闻页数
     if page_num != 0 and (page > page_num or page < 1):
