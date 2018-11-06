@@ -67,7 +67,7 @@ def statuslist(request):
 
 def status_page(request,每个评测_id):
     status = Status.objects.get(pk=每个评测_id)
-
+    
     Dict={
         'status': status,
     }
