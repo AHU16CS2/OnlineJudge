@@ -4,5 +4,24 @@
 {% block  评测记录高亮 %}active {%endblock%}
 
 {% block 主体 %}
-    <h4>这里以后是评测页面（个人）</h4>
+    <tr>
+        <td style="word-break:break-all;width:980px">
+            <h1 style="color:black" align=center>评测状态：<font color=red>{{status.Judge_Status}}</font></h1>
+            <h2>View Code</h2>
+            <div style="background-color:#F4FBFF; border:#B7CBFF 1px dashed; font-size:12px">
+                <div align=center style="font-family:Arial;border-bottom:#B7CBFF 1px dashed;padding:6px">
+                    <b>
+                        <font color=green>Problem : <a href="{% url 'problem:题目描述' status.Prob_ID %}" target=_blank>{{status.Prob_ID}}</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Judge Status : <font color=red>{{status.Judge_Status}}</font>
+                            <br>RunId : {{status.Status_ID}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;Language : {{status.Language}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;Author : <a href="{% url 'account:user_info' status.Author %}" target=_blank>{{status.Author}}</a>
+                        </font>
+                    </b>
+                </div>
+                <textarea id=usercode style="display:none;text-align:left;">
+                    aaaa
+                </textarea>
+
+
 {% endblock %}

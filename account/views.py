@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from .models import Profile
 from .forms import LoginForm, RegForm, InfoForm
 from submission.models import Status
+from account.models import Profile
+import math,random
 
 #User.last_login
 def user_info(request,nickname):
@@ -37,6 +39,8 @@ def user_info(request,nickname):
     print("-------++++++---------", status_ac_prob.values('Prob_ID'))
     profile[0].AC_prob_num=len(status_ac_prob)
 
+    profile[0].save()
+
     context={
              #"url_part":profile,
             "profile":profile[0],
@@ -48,7 +52,33 @@ def user_info(request,nickname):
 
 
 def ranklist(request):
-    return render(request, 'account/ranklist.html')
+    if request.method == "POST":
+        tmp_type = request.POST['当前分类']
+        tmp_page = request.POST['跳转至页数']
+        # 这里要判断一下非数字的情况
+        return redirect("/ranklist?&page={}".format(tmp_page))
+    page_capacity = 100  # 每页展示的用户数量  可以提供几个选项 20 50 100d:dd
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    else:
+        page = int(page)
+    rows1 = list(Profile.objects.filter(nickname__isnull=False).order_by("-AC_prob_num"))
+    User_num = len(rows1)  # 当前类别的题目数量
+    page_num = math.ceil(User_num / page_capacity)  # 当前类别的新闻页数
+    if page_num != 0 and (page > page_num or page < 1):
+        return render(request, "oj_base/alert/not_exist.html")
+    if page == page_num:
+        rows1 = rows1[page_capacity * (page - 1):]
+    else:
+        rows1 = rows1[page_capacity * (page - 1): page_capacity * page]
+    Dict = {
+        '用户总数': User_num,
+        '当前页数': page,
+        '总页数': page_num,
+        'Users': rows1,
+    }
+    return render(request, 'account/ranklist.html', Dict)
 
 
 def login(request):
