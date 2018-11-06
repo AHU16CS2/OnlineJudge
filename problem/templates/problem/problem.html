@@ -64,5 +64,16 @@
                     <p class="card-text"> 最后修改于{{problem.last_updated_time}}</p>
             </div>
         </div><br>
+        <form action = 'submit' method="POST">
+            {% csrf_token %} 
+            id:<input type="text" name = 'id' value ='{{problem.id}}'><br>
+            code:<textarea name = 'code'></textarea><br>
+            <!--<input type="text" name = 'code'><br>-->
+            <select name='language'>
+                    <option value="c">c</option>
+                    <option value="c++">c++</option>
+            </select> <br>
+            <input type="submit" value = '提交'>
+        </form>
     </div>
 {% endblock %}
