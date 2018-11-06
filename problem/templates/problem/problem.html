@@ -63,8 +63,8 @@
                     <p class="card-text"> {{problem.Author}}于{{problem.created_time}} 上传</p>
                     <p class="card-text"> 最后修改于{{problem.last_updated_time}}</p>
             </div>
-        </div><br>
-        <form action = 'submit' method="POST">
+        </div><br><br><br>
+        {% comment %} <form action = 'submit' method="POST">
             {% csrf_token %} 
             id:<input type="text" name = 'id' value ='{{problem.id}}'><br>
             code:<textarea name = 'code'></textarea><br>
@@ -74,6 +74,28 @@
                     <option value="c++">c++</option>
             </select> <br>
             <input type="submit" value = '提交'>
+        </form> {% endcomment %}
+        <form action = 'submit' method="POST">
+            {% csrf_token %} 
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="inputState"><h4 class="text-white">选择语言</h4></label>
+                    <select name="language" id="inputState" class="form-control">
+                        <option selected>c++</option>
+                        <option>c</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="comment"><h4 class="text-white">填入你的代码♪(･ω･)ﾉ</h4></label>
+                    <textarea name = 'code' class="form-control" rows="25" id="comment" ></textarea>
+                </div>
+            </div>
+            <input type="hidden" name = 'id' value ='{{problem.id}}'>
+            <button type="submit" class="btn btn-lg btn-dark">Submit</button>
         </form>
+
     </div>
 {% endblock %}
