@@ -63,8 +63,13 @@
                         <b><a class="text-primaty" >{{status.Submit_Time}}</a></b>
                     </td>
                     <td class="text-dark">
-                        <b><a class="text-primaty" href="{% url 'submission:评测状态' status.Status_ID %}">{{status.Judge_Status}}</a></b>
-                    </td>
+                        <b><a class="text-primaty" href="{% url 'submission:评测状态' status.Status_ID %}">
+                        {%if status.Judge_Status == 'Pending' %}<font color=blue>
+                        {%elif status.Judge_Status == 'Accepted' %}<font color=red>
+                        {%else%}<font color=green>
+                        {% endif %}
+                      {{status.Judge_Status}}</font></a></b>
+                      </td>
                     <td class="text-dark">
                         <b><a class="text-primaty" href="{% url 'problem:题目描述' status.Prob_ID %}">{{status.Prob_ID}}</a></b>
                     </td>

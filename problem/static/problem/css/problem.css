@@ -1,0 +1,4 @@
+pre{        /*pre标签自动换行*/
+    white-space:pre-wrap;
+    word-wrap:break-word;    
+}
