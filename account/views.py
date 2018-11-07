@@ -19,7 +19,7 @@ import math,random
 def user_info(request,nickname):
 
     profile = Profile.objects.filter(nickname=nickname)
-    print("len = ",len(profile))
+    print(list(profile))
     status = Status.objects.filter(Author=profile[0].id)
     print("-------Total---------",len(status))
 

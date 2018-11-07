@@ -69,7 +69,12 @@ def problist(request):
             }
     return render(request,'problem/problist.html',Dict)
 
+
+
 def submit(request):    # 提交代码时的函数
+    # if request.user.is_authenticated==False:
+    #     Dict={"信息":"先登录才能交题评测哦(≧∇≦)ﾉ"}
+    #     return render(request,"oj_base/alert/notice.html",Dict)       
     author = str(request.user.username)
     code = request.POST.get('code')
     # print(code)
