@@ -6,13 +6,24 @@
 {% block 主体 %}
     <tr>
         <td style="word-break:break-all;width:980px">
-            <h1 style="color:black" align=center>评测状态：<font color=red>{{status.Judge_Status}}</font></h1>
+            <h1 style="color:black" align=center>评测状态：
+                        {%if status.Judge_Status == 'Pending' %}<font color=blue>
+                        {%elif status.Judge_Status == 'Accepted' %}<font color=red>
+                        {%else%}<font color=green>
+                        {% endif %}
+                    {{status.Judge_Status}}</font></h1>
+            <pre style="background: white; white-space:pre-wrap;word-wrap:break-word;">{{status.Compile_Error_Info}}</pre>
             <h2>View Code</h2>
             <div style="background-color:#F4FBFF; border:#B7CBFF 1px dashed; font-size:12px">
                 <div align=center style="font-family:Arial;border-bottom:#B7CBFF 1px dashed;padding:6px">
                     <b>
                         <font color=green>Problem : <a href="{% url 'problem:题目描述' status.Prob_ID %}" target=_blank>{{status.Prob_ID}}</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Judge Status : <font color=red>{{status.Judge_Status}}</font>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Judge Status :
+                                    {%if status.Judge_Status == 'Pending' %}<font color=blue>
+                                    {%elif status.Judge_Status == 'Accepted' %}<font color=red>
+                                    {%else%}<font color=green>
+                                    {% endif %}
+                                {{status.Judge_Status}}</font>
                             <br>RunId : {{status.Status_ID}}
                         &nbsp;&nbsp;&nbsp;&nbsp;Language : {{status.Language}}
                         &nbsp;&nbsp;&nbsp;&nbsp;Author : <a href="{% url 'account:user_info' status.Author %}" target=_blank>{{status.Author}}</a>
