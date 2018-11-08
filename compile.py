@@ -123,16 +123,19 @@ if __name__ == '__main__':
             A.set_time(res[0])
             A.set_memory(res[1]*1000)
             res = A.judge(language,'problem/static/data/%d/'%prob_id)
-            if type(res) == str:
+            if type(res) == str:# 系统错误
                 submission.execute("update submission_status set Judge_status = 'System Error' where Status_ID =?",(status_id,))
-            elif type(res) == bytes:
+            elif type(res) == bytes:# 编译错误
                 submission.execute("update submission_status set Judge_status = 'Compile Error',Compile_Error_Info = ?  where Status_ID =?",(res,status_id))
             else:
-                submission.execute("update submission_status set Judge_status = ?,Exe_Time = ?,Exe_Memory = ? where Status_ID =?",(res['result'],int(res['timeused']),int(res['memoryused']),status_id))
+                
                 if res['result'] == 'Accepted':
+                    submission.execute("update submission_status set Judge_status = ?,Exe_Time = ?,Exe_Memory = ? where Status_ID =?",(res['result'],int(res['timeused']),int(res['memoryused']),status_id))
                     # 对AC的数量进行更新
                     submission.execute("update problem_problems set Total_AC = Total_AC +1 where id = ?",(str(prob_id),))
                     submission.execute("update account_profile set AC_num = AC_num +1 where id = ?",(str(author),))
+                else:
+                    submission.execute("update submission_status set Judge_status = ?,Exe_Time = 0,Exe_Memory = 0 where Status_ID =?",(res['result'],status_id))
             # 不管是否AC都对整个提交数进行更新
             submission.execute("update problem_problems set Total_submision = Total_submision +1 where id = ?",(str(prob_id),))
             submission.execute("update account_profile set Submit_num = Submit_num +1 where id = ?",(str(author),))
